@@ -1,2 +1,5 @@
 # JavaRPG
-Project
+```
+Minh, Ha, Linh, Trang, Vuong
+```
+# Project
