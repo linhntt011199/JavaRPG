@@ -8,12 +8,12 @@ public abstract class Entity {
     
     public static final int[] DEFAULT_HEALTH = {3, 5};
 
-    protected Handler handler;
-    protected float x, y;
-    protected int width, height;
+    protected Handler handler; // xu ly
+    protected float x, y; // toa do
+    protected int width, height; // chieu rong, chieu cao
     protected int health, level;
     protected boolean active = true, food = false;
-    protected Rectangle bounds;
+    protected Rectangle bounds; // hop gioi han va cham
     
     public Entity(Handler handler, float x, float y, int width, int height) {
         this.handler = handler;
@@ -23,12 +23,12 @@ public abstract class Entity {
         this.width = width;
         this.level = handler.getGame().getLevel();
         health = DEFAULT_HEALTH[level];
-        bounds = new Rectangle(0, 0, width, height);
+        bounds = new Rectangle(0, 0, width, height); // gioi han tu goc tren ben trai
     }
         
-    public abstract void tick();
+    public abstract void tick(); // cap nhat tat ca cac bien va su di chuyen
     
-    public abstract void render(Graphics g);
+    public abstract void render(Graphics g); // ve len man hinh
     
     public abstract void die();
     
@@ -40,7 +40,7 @@ public abstract class Entity {
         }
     }
     
-    public boolean checkEntityCollision(float xOffset, float yOffset) { 
+    public boolean checkEntityCollision(float xOffset, float yOffset) { // kiem tra va cham cua thuc the
         for(Entity e: handler.getWorld().getEntityManager().getEntities()){
             if(e.equals(this)){
                 continue;

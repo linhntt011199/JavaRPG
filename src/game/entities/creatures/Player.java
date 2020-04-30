@@ -19,8 +19,9 @@ public class Player extends Creature {
     public static long score = 0;
     
     public Player(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT); // toa do x,y, chieu cao, chieu rong mac dinh
         health = 1;
+        // thiet lap ranh gioi va cham phu hop voi co the cua nguoi choi
         bounds.x = 1;
         bounds.y = 1;
         bounds.width = 20;
@@ -43,7 +44,7 @@ public class Player extends Creature {
         //Animation
         currentImage.tick();
         //Movement
-        getInput();
+        getInput(); // dau vao
         move();
         //Attack 
         attack();
@@ -124,22 +125,22 @@ public class Player extends Creature {
         
     }
     
-    private void getInput() {
+    private void getInput() { // nhan dau vao
         xMove = 0;
         yMove = 0;
-        if(handler.getKeyManager().up)
+        if(handler.getKeyManager().up) // phim len
             yMove = -speed;
-        if(handler.getKeyManager().down)
+        if(handler.getKeyManager().down) // phim xuong
             yMove = speed;
-        if(handler.getKeyManager().left)
+        if(handler.getKeyManager().left) // phim trai
             xMove = -speed;
-        if(handler.getKeyManager().right)
+        if(handler.getKeyManager().right) // phim phai
             xMove = speed;
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(getCurrentAnimationFrame(), (int) (x), (int) (y), width, height, null);
+        g.drawImage(getCurrentAnimationFrame(), (int) (x), (int) (y), width, height, null); // ve o toa do x,y, chieu rong width, chieu cao height
         bullets.forEach((b) -> {
             b.render(g);
         });
