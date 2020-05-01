@@ -7,45 +7,45 @@ import java.util.Iterator;
 import game.Handler;
 import game.entities.creatures.Player;
 
-public class EntityManager {
-    private Handler handler;
-    private Player player;
-    private ArrayList<Entity> entities;
-    private Comparator<Entity> renderSorter = new Comparator<Entity>(){
+public class EntityManager { // quan ly thuc the
+    private Handler handler; // xu ly
+    private Player player; // doi tuong nguoi choi
+    private ArrayList<Entity> entities; // danh sach cac thuc the
+    private Comparator<Entity> renderSorter = new Comparator<Entity>(){ // bo so sanh cac thuc the
         @Override
-        public int compare(Entity a, Entity b) {
-            if(a.getY() + a.getHeight() < b.getY() + b.getHeight())
-                return -1;
-            return 1;
+        public int compare(Entity a, Entity b) { // phuong thuc so sanh
+            if(a.getY() + a.getHeight() < b.getY() + b.getHeight()) // toa do y duoi cung cua cac thuc the
+                return -1; // a hien thi truoc b
+            return 1; // a hien thi sau b
         }
     };
 
     public EntityManager(Handler handler, Player player) {
         this.handler = handler;
         this.player = player;
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<Entity>(); // danh sach mang moi
         addEntity(player);
     }
-    public void tick() {
+    public void tick() { // danh dau
 
-        Iterator<Entity> it = entities.iterator();
+        Iterator<Entity> it = entities.iterator(); // vong lap cua cac loai thuc the
         while(it.hasNext()){
             Entity e = it.next();
-            e.tick();
-            if(!e.isActive())
-                it.remove();
+            e.tick(); // danh dau
+            if(!e.isActive()) // kiem tra e co hoat dong khong
+                it.remove(); // xoa thuc the
         }
-        entities.sort(renderSorter);
+        entities.sort(renderSorter); // goi sap xep
     }
     
-    public void render(Graphics g) {
+    public void render(Graphics g) { // hien thi cac thuc the trong tro choi
         for(Entity e: entities) {
             e.render(g);
         }
     }
     
-    public void addEntity(Entity e) {
-        entities.add(e);
+    public void addEntity(Entity e) { // nhan mot thuc the e
+        entities.add(e); // them mot thuc the 
     }
 
     public Handler getHandler() {

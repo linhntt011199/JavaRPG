@@ -26,6 +26,7 @@ public abstract class Creature extends Entity {
     
     public void move() {
     	// phuong phap di chuyen
+    	// kiem tra va cham thuc the
         if(!checkEntityCollision(xMove, 0f))
             moveX();
         if(!checkEntityCollision(0f, yMove))
@@ -43,7 +44,9 @@ public abstract class Creature extends Entity {
                !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)){
                 x += xMove;
             } else{
-                x = tx * Tile.TILEWIDTH - bounds.x - bounds.width - 1;
+                x = tx * Tile.TILEWIDTH - bounds.x - bounds.width - 1; 
+                // tx * Tile.TILEWIDTH - bounds.x - bounds.width: bo di khoang cach giua hop gioi han va vat va cham
+                // -1: tao mot khoang cach nho cho phep di chuyen len xuong khi o sat vat va cham
             }
         } else if (xMove < 0) { // Sang trai 
             int tx = (int) (x + xMove + bounds.x) / Tile.TILEWIDTH;
@@ -51,7 +54,8 @@ public abstract class Creature extends Entity {
                !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)){
                 x += xMove;
             } else {
-                x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x + 1;
+                x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x + 1; //??
+                // tx * Tile.TILEWIDTH: chuyen doi thanh toa do pixel
             }
         }
     }
