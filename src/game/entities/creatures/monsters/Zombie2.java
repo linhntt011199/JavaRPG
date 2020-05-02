@@ -99,7 +99,7 @@ public class Zombie2 extends Zombie {
         if(Math.abs(yPlayer-yZ)>150 || Math.abs(xPlayer-xZ)>150) {
         	return;
         }
-        if((Math.abs(x-xPlayer)>Math.abs(y-yMove))||x==xPlayer) {
+        if((Math.abs(x-xPlayer)>Math.abs(y-yMove))||x==xPlayer) { // tien den nguoi choi
         	if(y>yPlayer)
         		yMove=-speed;
         	else

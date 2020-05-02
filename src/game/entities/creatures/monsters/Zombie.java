@@ -8,8 +8,8 @@ import game.gfx.Assets;
 
 public class Zombie extends Creature {
     
-    protected static final int[] ZOMBIE_SPEED = {1, 3};
-    private static final int[] BONUS = {50, 100};
+    protected static final int[] ZOMBIE_SPEED = {1, 3}; // toc do 
+    private static final int[] BONUS = {50, 100}; // diem thuong
     protected Animation animDown, animUp, animLeft, animRight, currentImage;     
     
     public Zombie(Handler handler, float x, float y) {
@@ -37,7 +37,7 @@ public class Zombie extends Creature {
     }
     
     @Override
-    public void die() {
+    public void die() { // khi zombie chet
         handler.getWorld().getEntityManager().getPlayer().setScore(BONUS[level]);
         handler.getWorld().setNumberOfMonster(-1);    
     }

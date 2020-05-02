@@ -19,11 +19,11 @@ public class Bullet extends Creature {
         this.owner = owner;
         X=x;
         Y=y;
-        if(this.owner instanceof Player){
+        if(this.owner instanceof Player){ // neu la nguoi choi thi toc do dan 2.0
             speed = BULLET_SPEED[0];
 
         } else{
-            speed = BULLET_SPEED[level];
+            speed = BULLET_SPEED[level]; // toc do dan phu thuoc vao level
        
         } 
         
@@ -48,26 +48,27 @@ public class Bullet extends Creature {
         
     }
     
-    public void checkAttacks() {
-        Rectangle cb = getCollisionBounds(0, 0);
-        if(this.owner instanceof Zombie) {
-            for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-                if(e.getCollisionBounds(0, 0).intersects(cb)){
-                    if(e.isFood()) {
-                        this.setActive(false);
+    public void checkAttacks() { // kiem tra xem co dang tan cong
+        Rectangle cb = getCollisionBounds(0, 0); // gioi han va cham, co toa do cua hop va cham
+        if(this.owner instanceof Zombie) { // neu la Zombie
+        	// kiem tra cac cuoc tan cong
+            for(Entity e : handler.getWorld().getEntityManager().getEntities()) { // nhan danh sach cac thuc the
+                if(e.getCollisionBounds(0, 0).intersects(cb)){ // kiem tra thuc the co giao nhau voi gioi han va cham khong
+                    if(e.isFood()) { // neu e la thuc an
+                        this.setActive(false); // bien mat
                         return;
-                    } else if(e.equals(handler.getWorld().getEntityManager().getPlayer())) {
-                        e.hurt(1);
-                        this.setActive(false);
+                    } else if(e.equals(handler.getWorld().getEntityManager().getPlayer())) { // neu e la nguoi choi
+                        e.hurt(1); // lam giam suc khoe  
+                        this.setActive(false); // active cua vien dan
                         return;
                     }
                 }
             }
-        }else if(this.owner instanceof Player) {
-            for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-                if(e.equals(this) || e.equals(this.owner))
-                    continue;
-                if(e.getCollisionBounds(0, 0).intersects(cb)){
+        }else if(this.owner instanceof Player) { // neu la nguoi choi
+            for(Entity e : handler.getWorld().getEntityManager().getEntities()) { // nhan danh sach cac thuc the
+                if(e.equals(this) || e.equals(this.owner)) // khong phai la nguoi choi
+                    continue; // tiep tuc
+                if(e.getCollisionBounds(0, 0).intersects(cb)){ // kiem tra thuc the co giao nhau voi gioi han va cham khong
                     if(e.isFood()){
                         this.setActive(false);
                         return;
@@ -95,7 +96,7 @@ public class Bullet extends Creature {
     }
     
     public void setMove() {
-        // Kiem tra hướng cua player de khoi tao xMove va yMove
+        // Kiem tra huong de khoi tao xMove va yMove
         
         if(owner.isRight()){
             xMove = speed;
@@ -116,15 +117,15 @@ public class Bullet extends Creature {
     
     @Override
     public void moveX(){
-    	if(Math.abs(X-x)>150) {
+    	if(Math.abs(X-x)>150) { // neu khoang cach > [150] thi bien mat
     		active=false;
     	}
-    	else if(xMove > 0){ //Tiếp tục di chuyển sang phai nếu không chạm vào tile 
+    	else if(xMove > 0){ //Tiep tuc di chuyen sang phai neu khong cham vao tile 
             int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
             if(!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT) &&
                !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)){
                 x += xMove;
-            } else{ //Di chuyển đến sát bound của tile và biến mất 
+            } else{ //Di chuyen den sat bound cua tile va� bien mat 
                 x = tx * Tile.TILEWIDTH - bounds.x - bounds.width + 1;
                 active = false;
             }

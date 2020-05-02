@@ -52,10 +52,10 @@ public class Player extends Creature {
         attack();
         checkAttacks(); // kiem tra tan cong
         //Bullet 
-        Iterator<Bullet> it = bullets.iterator();
+        Iterator<Bullet> it = bullets.iterator(); // vong lap co dan
         while(it.hasNext()){
             Bullet b = it.next();
-            b.tick();
+            b.tick(); // danh dau
             if(!b.isActive())
                 it.remove();
         }
