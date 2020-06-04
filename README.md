@@ -7,7 +7,7 @@
    - JDK >= 8 
 ### Milestones
 <details>
-   <summary>Click to expand!</summary>
+   <summary>Click to expand!</summary> </br>
    - 27/4/2020:       <pre></code>Start with awt</code></pre>
    - Until 12/5/2020: <pre></code>NetK Jobfair --> Pause</code></pre>
    - Until 22/5/2020: <pre></code>Sun* Jobfair --> Pause</code></pre>
