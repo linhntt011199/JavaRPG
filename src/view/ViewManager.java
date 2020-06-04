@@ -6,12 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
@@ -35,7 +32,7 @@ import model.MapPicker;
 import model.SimpleRPGButton;
 import model.SimpleRPGSubscene;
 
-public class ViewManager<MBox> {
+public class ViewManager {
 	
 	private static final int WIDTH = 768;
 	private static final int HEIGHT = 600;
