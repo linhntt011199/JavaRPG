@@ -28,7 +28,7 @@ public class GameViewManager {
 	private static final int GAME_WIDTH = tile_width*ncols, GAME_HEIGHT = tile_height*nrows;
 	private static int [][] tile = new int[100][100];
 	private static boolean [][] visited = new boolean[100][100];
-	private ArrayList<Entity> gameObject2D = new ArrayList<>();
+	private ArrayList<Entity> gameObject2D = new ArrayList<Entity>();
 	private AnchorPane gamePane;
 	private Scene gameScene;
 	private Stage gameStage;
@@ -156,7 +156,7 @@ public class GameViewManager {
 	            	else if(tile[row][col] == 5) {
 						gc.drawImage(water, tile_width*col, tile_height*row, tile_width, tile_height);
 						visited(water, row, col);
-	            		gameObject2D.add(new Entity(imageView, "water", 192, 256, tile_width, tile_height));	
+						gameObject2D.add(new Entity(imageView, "water", 192, 256, tile_width, tile_height));	
 					}
 //	            	else continue;
             	}
@@ -186,71 +186,70 @@ public class GameViewManager {
 	private void moveCharacter() {
 		if(movingLeft) {
 			if (movingUp) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(32);
-					if (!player.checkEntityCollision(-2,-2)) {
-						player.moveX(-2);
-						player.moveY(-2);
-					} else {
-//						System.out.println(player.gethealth());
-//						if (player.minushealth() <= 0) gamePane.getChildren().remove(player);
-					}
-					
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(32);
+				if (!player.checkEntityCollision(-2,-2)) {
+					player.moveX(-2);
+					player.moveY(-2);
+				} else {
+//					System.out.println(player.gethealth());
+//					if (player.minushealth() <= 0) gamePane.getChildren().remove(player);
+				}	
+			}
+			else if(movingDown) {
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(0);
+				if (!player.checkEntityCollision(-2,2)) {
+					player.moveX(-2);
+					player.moveY(2);
 				}
-				else if(movingDown) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(0);
-					if (!player.checkEntityCollision(-2,2)) {
-						player.moveX(-2);
-						player.moveY(2);
-					}
-				}
-				else {
-					player.animation.play();
-					player.animation.setOffsetY(32);
-					player.animation.setOffsetX(0);
-					if (!player.checkEntityCollision(-2,0)) player.moveX(-2);
-				}
+			}
+			else {
+				player.animation.play();
+				player.animation.setOffsetY(32);
+				player.animation.setOffsetX(0);
+				if (!player.checkEntityCollision(-2,0)) player.moveX(-2);
+			}
 				
 		} else if (movingRight) {
-				if (movingUp) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(96);
-					if (!player.checkEntityCollision(2,-2)) {
-						player.moveX(2);
-						player.moveY(-2);
-					}
-				}
-				else if(movingDown) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(64);
-					if (!player.checkEntityCollision(2,2)) {
-						player.moveX(2);
-						player.moveY(2);
-					}				
-				}
-				else {
-					player.animation.play();
-					player.animation.setOffsetY(64);
-					player.animation.setOffsetX(0);
-					if (!player.checkEntityCollision(2,0)) player.moveX(2);
-				}
-		} else if (movingUp) {
+			if (movingUp) {
 				player.animation.play();
+				player.animation.setOffsetX(96);
 				player.animation.setOffsetY(96);
-				player.animation.setOffsetX(0);
-				if (!player.checkEntityCollision(0,-2)) player.moveY(-2);
-		} else if (movingDown) {
-				player.animation.play();
-				player.animation.setOffsetY(0);
-				player.animation.setOffsetX(0);
-				if (!player.checkEntityCollision(0,2)) player.moveY(2);
-			} else {
-				player.animation.stop();
+				if (!player.checkEntityCollision(2,-2)) {
+					player.moveX(2);
+					player.moveY(-2);
+				}
 			}
+			else if(movingDown) {
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(64);
+				if (!player.checkEntityCollision(2,2)) {
+					player.moveX(2);
+					player.moveY(2);
+				}				
+			}
+			else {
+				player.animation.play();
+				player.animation.setOffsetY(64);
+				player.animation.setOffsetX(0);
+				if (!player.checkEntityCollision(2,0)) player.moveX(2);
+			}
+		} else if (movingUp) {
+			player.animation.play();
+			player.animation.setOffsetY(96);
+			player.animation.setOffsetX(0);
+			if (!player.checkEntityCollision(0,-2)) player.moveY(-2);
+		} else if (movingDown) {
+			player.animation.play();
+			player.animation.setOffsetY(0);
+			player.animation.setOffsetX(0);
+			if (!player.checkEntityCollision(0,2)) player.moveY(2);
+		} else {
+			player.animation.stop();
+		}
 	}
 }

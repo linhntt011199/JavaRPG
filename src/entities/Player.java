@@ -19,10 +19,10 @@ public class Player extends Entity {
     int velocity = 2;
 	public SpriteAnimation animation;
 	
-	private boolean isFacingRight = false;
-    private boolean isFacingDown = true;
-    private boolean isFacingUp = false;
-    private boolean isFacingLeft = false;
+//	private boolean isFacingRight = false;
+//    private boolean isFacingDown = true;
+//    private boolean isFacingUp = false;
+//    private boolean isFacingLeft = false;
 
     private ArrayList<Entity> collisions = new ArrayList<>();
     
@@ -48,59 +48,59 @@ public class Player extends Entity {
 		return velocity;
 	}
 	
-	public boolean isFacingRight() {
-        boolean facing = false;
-        if (isFacingRight && !isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
-        return facing;
-    }
-
-    public boolean isFacingLeft() {
-        boolean facing = false;
-        if (!isFacingRight && !isFacingDown && !isFacingUp && isFacingLeft) facing = true;
-        return facing;
-    }
-
-    public boolean isFacingDown() {
-        boolean facing = false;
-        if (!isFacingRight && isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
-        return facing;
-    }
-
-    public boolean isFacingUp() {
-        boolean facing = false;
-        if (!isFacingRight && !isFacingDown && isFacingUp && !isFacingLeft) facing = true;
-        return facing;
-    }
-
-    // diagonal
-    public boolean isFacingUpRight() {
-        boolean facing = false;
-        if (isFacingRight && isFacingUp) facing = true;
-
-        return facing;
-    }
-
-    public boolean isFacingUpLeft() {
-        boolean facing = false;
-        if (isFacingLeft && isFacingUp) facing = true;
-
-        return facing;
-    }
-
-    public boolean isFacingDownRight() {
-        boolean facing = false;
-        if (isFacingRight && isFacingDown) facing = true;
-
-        return facing;
-    }
-
-    public boolean isFacingDownLeft() {
-        boolean facing = false;
-        if (isFacingDown && isFacingLeft) facing = true;
-
-        return facing;
-    }
-    
+//	public boolean isFacingRight() {
+//        boolean facing = false;
+//        if (isFacingRight && !isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
+//        return facing;
+//    }
+//
+//    public boolean isFacingLeft() {
+//        boolean facing = false;
+//        if (!isFacingRight && !isFacingDown && !isFacingUp && isFacingLeft) facing = true;
+//        return facing;
+//    }
+//
+//    public boolean isFacingDown() {
+//        boolean facing = false;
+//        if (!isFacingRight && isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
+//        return facing;
+//    }
+//
+//    public boolean isFacingUp() {
+//        boolean facing = false;
+//        if (!isFacingRight && !isFacingDown && isFacingUp && !isFacingLeft) facing = true;
+//        return facing;
+//    }
+//
+//    // diagonal
+//    public boolean isFacingUpRight() {
+//        boolean facing = false;
+//        if (isFacingRight && isFacingUp) facing = true;
+//
+//        return facing;
+//    }
+//
+//    public boolean isFacingUpLeft() {
+//        boolean facing = false;
+//        if (isFacingLeft && isFacingUp) facing = true;
+//
+//        return facing;
+//    }
+//
+//    public boolean isFacingDownRight() {
+//        boolean facing = false;
+//        if (isFacingRight && isFacingDown) facing = true;
+//
+//        return facing;
+//    }
+//
+//    public boolean isFacingDownLeft() {
+//        boolean facing = false;
+//        if (isFacingDown && isFacingLeft) facing = true;
+//
+//        return facing;
+//    }
+//    
     /** =========================== SETTERS =========================== **/
     
     public void setOffsetX(int offsetX) {
@@ -112,62 +112,62 @@ public class Player extends Entity {
 	}
 
     // face setters
-    public void setFaceRight() {
-        isFacingRight = true;
-        isFacingDown = false;
-        isFacingUp = false;
-        isFacingLeft = false;
-    }
-
-    public void setFaceLeft() {
-        isFacingRight = false;
-        isFacingDown = false;
-        isFacingUp = false;
-        isFacingLeft = true;
-    }
-
-    public void setFaceDown() {
-        isFacingRight = false;
-        isFacingDown = true;
-        isFacingUp = false;
-        isFacingLeft = false;
-    }
-
-    public void setFaceUp() {
-        isFacingRight = false;
-        isFacingDown = false;
-        isFacingUp = true;
-        isFacingLeft = false;
-    }
-
-    // diagonal faces
-    public void setFaceUpRight() {
-        isFacingRight = true;
-        isFacingDown = false;
-        isFacingUp = true;
-        isFacingLeft = false;
-    }
-
-    public void setFaceUpLeft() {
-        isFacingRight = false;
-        isFacingDown = false;
-        isFacingUp = true;
-        isFacingLeft = true;
-    }
-
-    public void setFaceDownRight() {
-        isFacingRight = true;
-        isFacingDown = true;
-        isFacingUp = false;
-        isFacingLeft = false;
-    }
-
-    public void setFaceDownLeft() {
-        isFacingRight = false;
-        isFacingDown = true;
-        isFacingUp = false;
-        isFacingLeft = true;
-    }
+//    public void setFaceRight() {
+//        isFacingRight = true;
+//        isFacingDown = false;
+//        isFacingUp = false;
+//        isFacingLeft = false;
+//    }
+//
+//    public void setFaceLeft() {
+//        isFacingRight = false;
+//        isFacingDown = false;
+//        isFacingUp = false;
+//        isFacingLeft = true;
+//    }
+//
+//    public void setFaceDown() {
+//        isFacingRight = false;
+//        isFacingDown = true;
+//        isFacingUp = false;
+//        isFacingLeft = false;
+//    }
+//
+//    public void setFaceUp() {
+//        isFacingRight = false;
+//        isFacingDown = false;
+//        isFacingUp = true;
+//        isFacingLeft = false;
+//    }
+//
+//    // diagonal faces
+//    public void setFaceUpRight() {
+//        isFacingRight = true;
+//        isFacingDown = false;
+//        isFacingUp = true;
+//        isFacingLeft = false;
+//    }
+//
+//    public void setFaceUpLeft() {
+//        isFacingRight = false;
+//        isFacingDown = false;
+//        isFacingUp = true;
+//        isFacingLeft = true;
+//    }
+//
+//    public void setFaceDownRight() {
+//        isFacingRight = true;
+//        isFacingDown = true;
+//        isFacingUp = false;
+//        isFacingLeft = false;
+//    }
+//
+//    public void setFaceDownLeft() {
+//        isFacingRight = false;
+//        isFacingDown = true;
+//        isFacingUp = false;
+//        isFacingLeft = true;
+//    }
 	
     /** ==================== COLLISION ============================ **/
 
