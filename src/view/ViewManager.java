@@ -1,16 +1,12 @@
 package view;
 
-import java.io.File;
+//import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,336 +17,259 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import model.CHARACTER;
-import model.CharacterPicker;
+import model.GameButton;
 import model.InfoLabel;
-import model.MAP;
-import model.MapPicker;
-import model.SimpleRPGButton;
-import model.SimpleRPGSubscene;
+import model.MODE;
+import model.ModeChooser;
+import model.MenuSubScene;
 
 public class ViewManager {
-	
-	private static final int WIDTH = 768;
-	private static final int HEIGHT = 600;
+	private static final int WIDTH = 1024;
+	private static final int HEIGHT = 700;
 	private AnchorPane mainPane;
 	private Scene mainScene;
 	private Stage mainStage;
 	
-	private static final int NEW_BUTTON_START_X = 100;
-	private static final int NEW_BUTTON_START_Y = 100;
+	private static final int MENU_BUTTONS_START_X = 100;
+	private static final int MENU_BUTTONS_START_Y = 150;
 	
-	private SimpleRPGSubscene credistsSubScene;
-	private SimpleRPGSubscene helpSubScene;
-	private SimpleRPGSubscene scoreSubScene;
-	private SimpleRPGSubscene characterChooserSubScene;
-	private SimpleRPGSubscene mapChooserSubScene;
+	public final static String MUSIC_PATH = "src/view/resources/introMusic.mp3";
 	
-	private SimpleRPGSubscene sceneToHide;
-	List<CharacterPicker> characterList;
-	private CHARACTER choosenCharacter;
-	List<MapPicker> mapList;
-	private MAP choosenMap;
-	List<SimpleRPGButton> menuButton;
+	private MenuSubScene playSubScene;
+	private MenuSubScene scoresSubScene;
+	private MenuSubScene helpSubScene;
+	private MenuSubScene creditsSubScene;
 	
-	private static final String musicFile = "src/view/resources/BIGBANG.mp3";
+	private MenuSubScene sceneToHide;
+	
+	List<GameButton> menuButtons;
+	List<ModeChooser> modeList;
+	private MODE choosenMode;
 	
 	public ViewManager() {
-		menuButton = new ArrayList<>();
+		menuButtons = new ArrayList<>();
 		mainPane = new AnchorPane();
 		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 		mainStage = new Stage();
 		mainStage.setScene(mainScene);
-		mainStage.setTitle("Simple RPG");
 		createSubScene();
 		createButtons();
 		createBackground();
 		createLogo();
-		//createMusic();
+//		createMusic();
 	}
 	
-	private void createMusic() {
-		Media sound = new Media(new File(musicFile).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.play();
-	}
-	
-	private void showSubScene(SimpleRPGSubscene subScene) {
-		if (sceneToHide != null) {
+//	private void createMusic() {
+//		Media music = new Media(new File(MUSIC_PATH).toURI().toString());  
+//		MediaPlayer mediaPlayer = new MediaPlayer(music);
+//		mediaPlayer.setAutoPlay(true);
+//	}
+
+	private void showSubScene(MenuSubScene subScene) {
+//		if (sceneToHide == null) {
+//			subScene.moveSubScene();
+//			System.out.println("Case 1");
+//		} else if (sceneToHide != null && sceneToHide == subScene) {
+//			subScene.moveSubScene();
+//			System.out.println("Case 2");
+//		} else if (sceneToHide != null && sceneToHide != subScene && sceneToHide.isHidden() == false) {
+//			sceneToHide.moveSubScene();
+//			subScene.moveSubScene();
+//			System.out.println("Case 3");
+//		} else if (sceneToHide != null && sceneToHide != subScene && sceneToHide.isHidden() == true){
+//			subScene.moveSubScene();
+//			System.out.println("Case 4");
+//		}
+		
+		if (sceneToHide != null && sceneToHide != subScene && sceneToHide.isHidden() == false) {
 			sceneToHide.moveSubScene();
+			subScene.moveSubScene();
+		} else {
+			subScene.moveSubScene();
 		}
-		subScene.moveSubScene();
 		sceneToHide = subScene;
 	}
 	
 	private void createSubScene() {
-		credistsSubScene = new SimpleRPGSubscene();
-		mainPane.getChildren().add(credistsSubScene);
+		scoresSubScene = new MenuSubScene();
+		mainPane.getChildren().add(scoresSubScene);
 		
-		helpSubScene = new SimpleRPGSubscene();
+		helpSubScene = new MenuSubScene();
 		mainPane.getChildren().add(helpSubScene);
 		
-		scoreSubScene = new SimpleRPGSubscene();
-		mainPane.getChildren().add(scoreSubScene);
+//		creditsSubScene = new MenuSubScene("/test.fxml");
+//		Text string = new Text("...");
+//		string.setLayoutX(110);
+//		string.setLayoutY(40);
+//		creditsSubScene.getPane().getChildren().add(string);
+		creditsSubScene = new MenuSubScene();
+		mainPane.getChildren().add(creditsSubScene);
 		
-		characterChooserSubScene = new SimpleRPGSubscene();
-		mainPane.getChildren().add(characterChooserSubScene);
-		
-		
-		
-		createCharacterChooserSubScene();
-		mapChooserSubScene = new SimpleRPGSubscene();
-		mainPane.getChildren().add(mapChooserSubScene);
-		creatMapChooserSubScene();
+		createLevelChooserSubScene();
 	}
 	
-	private void creatMapChooserSubScene() {
-		mapChooserSubScene = new SimpleRPGSubscene();
-		
-		mainPane.getChildren().add(mapChooserSubScene);
-		InfoLabel chooserMapLabel = new InfoLabel("CHOOSE YOUR MAP");
-		chooserMapLabel.setLayoutX(5);
-		chooserMapLabel.setLayoutY(5);
-		mapChooserSubScene.getPane().getChildren().add(chooserMapLabel);
-		mapChooserSubScene.getPane().getChildren().add(createMapToChoose());
-		mapChooserSubScene.getPane().getChildren().add(createButtonToNext());
+	private void createLevelChooserSubScene() {
+		playSubScene = new MenuSubScene();
+		mainPane.getChildren().add(playSubScene);
+		InfoLabel chooseLevelLabel = new InfoLabel("CHOOSE MODE");
+		chooseLevelLabel.setLayoutX(110);
+		chooseLevelLabel.setLayoutY(40);
+		playSubScene.getPane().getChildren().add(chooseLevelLabel);
+		playSubScene.getPane().getChildren().add(createModeToChoose());
+		playSubScene.getPane().getChildren().add(createButtonToStart());
 	}
-
-	private HBox createMapToChoose() {
+	
+	private HBox createModeToChoose() {
 		HBox box = new HBox();
-		box.setSpacing(10);
-		mapList = new ArrayList<>();
-		for(CHARACTER character : CHARACTER.values()) {
-			CharacterPicker characterToPick = new CharacterPicker(character);
-			characterList.add(characterToPick);
-			box.getChildren().add(characterToPick);
-			characterToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		box.setSpacing(60);
+		modeList = new ArrayList<>();
+		for (MODE mode : MODE.values()) {
+			ModeChooser modeToChoose = new ModeChooser(mode);
+			box.getChildren().add(modeToChoose);
+			modeList.add(modeToChoose);
+			modeToChoose.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
-					for(CharacterPicker character : characterList) {
-						character.setIsCircleChooser(false);
+					for (ModeChooser mode : modeList) {
+						mode.setIsCircleChoosen(false);
 					}
-					characterToPick.setIsCircleChooser(true);
-					choosenCharacter = characterToPick.getCharacter();
+					modeToChoose.setIsCircleChoosen(true);
+					setChoosenMode(modeToChoose.getMode());
 				}
-				
 			});
 		}
-		box.setLayoutX(275 - (118*2));
-		box.setLayoutY(80);
+		box.setLayoutX(300-(118*2));
+		box.setLayoutY(150);
 		return box;
 	}
-
-	private void createCharacterChooserSubScene() {
-		characterChooserSubScene = new SimpleRPGSubscene();
-		
-		mainPane.getChildren().add(characterChooserSubScene);
-		InfoLabel chooserCharacterLabel = new InfoLabel("CHOOSE YOUR CHARACTER");
-		chooserCharacterLabel.setLayoutX(5);
-		chooserCharacterLabel.setLayoutY(5);
-		characterChooserSubScene.getPane().getChildren().add(chooserCharacterLabel);
-		characterChooserSubScene.getPane().getChildren().add(createCharacterToChoose());
-		//characterChooserSubScene.getPane().getChildren().add(createButtonToNext());
-		characterChooserSubScene.getPane().getChildren().add(createButtonToStart());
-	}
 	
-	
-	
-	private SimpleRPGButton createButtonToNext() {
-		SimpleRPGButton nextButton = new SimpleRPGButton("NEXT");
-		nextButton.setLayoutX(100);
-		nextButton.setLayoutY(300);
-		nextButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				showSubScene(mapChooserSubScene);
-			}
-			
-		});
-		return nextButton;
-	}
-
-	private HBox createCharacterToChoose() {
-		HBox box = new HBox();
-		box.setSpacing(10);
-		characterList = new ArrayList<>();
-		for(CHARACTER character : CHARACTER.values()) {
-			CharacterPicker characterToPick = new CharacterPicker(character);
-			characterList.add(characterToPick);
-			box.getChildren().add(characterToPick);
-			characterToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-					for(CharacterPicker character : characterList) {
-						character.setIsCircleChooser(false);
-					}
-					characterToPick.setIsCircleChooser(true);
-					choosenCharacter = characterToPick.getCharacter();
-				}
-				
-			});
-		}
-		box.setLayoutX(275 - (118*2));
-		box.setLayoutY(80);
-		return box;
-	}
-
-	private SimpleRPGButton createButtonToStart() {
-		SimpleRPGButton startButton = new SimpleRPGButton("START");
-		startButton.setLayoutX(100);
+	private GameButton createButtonToStart() {
+		GameButton startButton = new GameButton("START");
+		startButton.setLayoutX(350);
 		startButton.setLayoutY(300);
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
+
 			@Override
 			public void handle(ActionEvent event) {
-				if (choosenCharacter != null) {
+				if (choosenMode != null) {
 					GameViewManager gameManager = new GameViewManager();
-					gameManager.createNewGame(mainStage, choosenCharacter);
+					gameManager.createNewGame(mainStage, choosenMode);
 				}
 			}
 			
 		});
 		return startButton;
-		
 	}
+	
 	public Stage getMainStage() {
 		return mainStage;
 	}
 	
-	private void addMenuButton(SimpleRPGButton button) {
-		button.setLayoutX(NEW_BUTTON_START_X);
-		button.setLayoutY(NEW_BUTTON_START_Y + menuButton.size() * 100);
-		menuButton.add(button);
+	private void addMenuButton(GameButton button) {
+		button.setLayoutX(MENU_BUTTONS_START_X);
+		button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100);
+		menuButtons.add(button);
 		mainPane.getChildren().add(button);
 	}
 	
 	private void createButtons() {
-		createStartButton();
-		createScoreButton();
+		createPlayButton();
+		createScoresButton();
 		createHelpButton();
-		createCreditButton();
+		createCreditsButton();
 		createExitButton();
 	}
 	
-	private void createStartButton() {
-		SimpleRPGButton startButton = new SimpleRPGButton("PLAY");
+	private void createPlayButton() {
+		GameButton startButton = new GameButton("PLAY");
 		addMenuButton(startButton);
 		
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				showSubScene(characterChooserSubScene);
-				
+				showSubScene(playSubScene);
 			}
-			
 		});
 	}
-	
-	private void createScoreButton() {
-		SimpleRPGButton scoreButton = new SimpleRPGButton("SCORE");
-		addMenuButton(scoreButton);
-		scoreButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				showSubScene(scoreSubScene);
-				
-			}
-			
-		});
-	}
-	
-	private void createHelpButton() {
-		SimpleRPGButton helpButton = new SimpleRPGButton("HELP");
-		addMenuButton(helpButton);
+	private void createScoresButton() {
+		GameButton scoresButton = new GameButton("SCORES");
+		addMenuButton(scoresButton);
 		
+		scoresButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				showSubScene(scoresSubScene);
+			}
+		});
+	}
+	private void createHelpButton() {
+		GameButton helpButton = new GameButton("HELP");
+		addMenuButton(helpButton);
 		helpButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				showSubScene(helpSubScene);
-				
 			}
-			
 		});
 	}
-	
-	private void createCreditButton() {
-		SimpleRPGButton creditButton = new SimpleRPGButton("CREDIT");
-		addMenuButton(creditButton);
+	private void createCreditsButton() {
+		GameButton creditsButton = new GameButton("CREDITS");
+		addMenuButton(creditsButton);
 		
-		creditButton.setOnAction(new EventHandler<ActionEvent>() {
-
+		creditsButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				showSubScene(credistsSubScene);
-				
+				showSubScene(creditsSubScene);		
 			}
-			
 		});
 	}
-	
 	private void createExitButton() {
-		SimpleRPGButton exitButton = new SimpleRPGButton("EXIT");
+		GameButton exitButton = new GameButton("EXIT");
 		addMenuButton(exitButton);
+		
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				alert.setTitle("Comfirmation");
-				alert.setContentText("Choose your option");
-				
-				ButtonType buttonTypeYes = new ButtonType("YES", ButtonBar.ButtonData.YES);
-				ButtonType buttonTypeCancel = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
-				
-				alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
-				
-				Optional<ButtonType> result = alert.showAndWait();
-				
-				if(result.get().getButtonData() == ButtonBar.ButtonData.YES) mainStage.close();
-				
+				mainStage.close();		
 			}
-			
 		});
 	}
 	
 	private void createBackground() {
-		Image backgroundImage = new Image("view/resources/backgroundCastles.png", 256, 256, false, true);
-		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+		Image backgroundImage = new Image("view/resources/blue.png", 256, 256, false, true);
+		BackgroundImage background = new BackgroundImage(backgroundImage, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		mainPane.setBackground(new Background(background));
-		
 	}
-	
 	private void createLogo() {
-		ImageView logo = new ImageView("view/resources/SimpleRPG.png");
-		logo.setLayoutX(300);
-		logo.setLayoutY(30);
-		
+		ImageView logo = new ImageView("view/resources/rpg.png");
+		logo.setLayoutX(400);
+		logo.setLayoutY(50);
 		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
 			@Override
 			public void handle(MouseEvent event) {
-				logo.setEffect(new DropShadow());
-				
+				logo.setEffect(new DropShadow());	
 			}
-			
 		});
 		logo.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				logo.setEffect(null);
-				
 			}
-			
 		});
 		mainPane.getChildren().add(logo);
 	}
 
+	public MODE getChoosenMode() {
+		return choosenMode;
+	}
+
+	public void setChoosenMode(MODE choosenMode) {
+		this.choosenMode = choosenMode;
+	}
 }
