@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.CHARACTER;
+import model.Monster;
 import model.Player;
 import model.RectangleImage;
 
@@ -48,17 +49,19 @@ public class GameViewManager{
 	Image image = new Image("view/resources/player_tilesheet.png");
 	ImageView imageView = new ImageView(image);
 	Player player = new Player(imageView);
+	
+	Image imgMonster = new Image("view/resources/EntitySet.png");
+	ImageView imgViewMonster = new ImageView(imgMonster);
+	Monster monster = new Monster(imgViewMonster);
 
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	
-	private int renderSorter(Entity entity, Player player){ // bo so sanh cac thuc the
-        if(entity.getLayoutY() + entity.getHeight() < player.getLayoutY() + player.getHeight()) // toa do y duoi cung cua cac thuc the
-        	return -1; // a hien thi truoc b
-        return 1; // a hien thi sau b
-    }
+	private int h;
+	
     
 	public GameViewManager() {
 		initializeStage();
+		
 	}
 	
 	
@@ -69,7 +72,7 @@ public class GameViewManager{
         		Rectangle Bound = e.getCollisionBounds(0f, 0f);
         		//Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 25, Bound.getWidth() - 2, Bound.getHeight() - 30);
         		Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 1, Bound.getWidth() - 1 , Bound.getHeight() - 4);
-            	if(entityBound.intersects((player.getTranslateX()+ 10 + xOffset), (player.getTranslateY() + 25 + yOffset), player.getWidth()-20, player.getHeight() - 28)){ // co giao cat
+            	if(entityBound.intersects((player.getTranslateX()+ xOffset), (player.getTranslateY() + 14 + yOffset), player.getWidth(), player.getHeight()/2)){ // co giao cat
                         return true;
             	}
                     
@@ -91,6 +94,44 @@ public class GameViewManager{
         }
         return false; // khong co va cham
     }
+	
+	public boolean checkMonsterCollision(float xOffset, float yOffset) { // kiem tra va cham cua thuc the
+        for(Entity e: entities){ // nhan danh sach cac thuc the 
+        	if (e.getName().equals("tree")) {
+        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
+        		//Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 25, Bound.getWidth() - 2, Bound.getHeight() - 30);
+        		Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 1, Bound.getWidth() - 1 , Bound.getHeight() - 4);
+        		//System.out.println((monster.getTranslateX()+ 100+10 + xOffset) + " " + (monster.getTranslateY() + 100+25 + yOffset));
+            	if(entityBound.intersects((monster.getTranslateX()+ 100 + 10 + xOffset), (monster.getTranslateY() + 100 + 25 + yOffset), monster.getWidth()-20, monster.getHeight() - 28)){ // co giao cat
+                        return true;
+            	}
+                    
+            }
+        	if (e.getName().equals("rock")) {
+        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), Bound.getWidth(), Bound.getHeight());
+            	if(entityBound.intersects((monster.getTranslateX()+100+10 + xOffset), (monster.getTranslateY() + 100+20 + yOffset), monster.getWidth()-20, monster.getHeight()-20)){ // co giao cat
+                        return true;
+            	}
+        	}
+        	if (e.getName().equals("water")) {
+        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), Bound.getWidth(), Bound.getHeight());
+            	if(entityBound.intersects((monster.getTranslateX()+100+8 + xOffset), (monster.getTranslateY() + 100+16 + yOffset), monster.getWidth()/2, monster.getHeight()/2)){ // co giao cat
+                        return true;
+            	}
+        	}
+        	
+        	if (monster.getTranslateX() + xOffset == 670 || monster.getTranslateX() + xOffset == -100 || monster.getTranslateY()  + yOffset == 470 || monster.getTranslateY()  + yOffset == -100) return true;
+        
+    		
+        }
+        return false; // khong co va cham
+    }
+	
+	
+	
+	
 
 	private void moveCharacter() {
 		if(isLeftKeyPressed) {
@@ -98,12 +139,9 @@ public class GameViewManager{
 					player.animation.play();
 					player.animation.setOffsetX(96);
 					player.animation.setOffsetY(32);
-					if (!checkEntityCollision(-2,-2)) {
-						player.moveX(-2);
-						player.moveY(-2);
-					} else {
-						System.out.println(player.gethealth());
-						if (player.minushealth() <= 0) gamePane.getChildren().remove(player);
+					if (!checkEntityCollision(-2,-2) ) {
+						player.moveX(-player.getSpeed());
+						player.moveY(-player.getSpeed());
 					}
 					
 				}
@@ -112,15 +150,15 @@ public class GameViewManager{
 					player.animation.setOffsetX(96);
 					player.animation.setOffsetY(0);
 					if (!checkEntityCollision(-2,2)) {
-						player.moveX(-2);
-						player.moveY(2);
+						player.moveX(-player.getSpeed());
+						player.moveY(player.getSpeed());
 					}
 				}
 				else {
 					player.animation.play();
 					player.animation.setOffsetY(32);
 					player.animation.setOffsetX(0);
-					if (!checkEntityCollision(-2,0)) player.moveX(-2);
+					if (!checkEntityCollision(-2,0)) player.moveX(-player.getSpeed());  
 				}
 				
 			} else if (isRightKeyPressed) {
@@ -129,8 +167,8 @@ public class GameViewManager{
 					player.animation.setOffsetX(96);
 					player.animation.setOffsetY(96);
 					if (!checkEntityCollision(2,-2)) {
-						player.moveX(2);
-						player.moveY(-2);
+						player.moveX(player.getSpeed());
+						player.moveY(-player.getSpeed());
 					}
 				}
 				else if(isDownKeyPressed) {
@@ -138,8 +176,8 @@ public class GameViewManager{
 					player.animation.setOffsetX(96);
 					player.animation.setOffsetY(64);
 					if (!checkEntityCollision(2,2)) {
-						player.moveX(2);
-						player.moveY(2);
+						player.moveX(player.getSpeed());
+						player.moveY(player.getSpeed());
 					}
 					
 				}
@@ -147,24 +185,87 @@ public class GameViewManager{
 					player.animation.play();
 					player.animation.setOffsetY(64);
 					player.animation.setOffsetX(0);
-					if (!checkEntityCollision(2,0)) player.moveX(2);
+					if (!checkEntityCollision(2,0)) player.moveX(player.getSpeed());
 				}
 			} else if (isUpKeyPressed) {
 				player.animation.play();
 				player.animation.setOffsetY(96);
 				player.animation.setOffsetX(0);
-				if (!checkEntityCollision(0,-2)) player.moveY(-2);
+				if (!checkEntityCollision(0,-2)) player.moveY(-player.getSpeed());
 			}else if (isDownKeyPressed) {
 				player.animation.play();
 				player.animation.setOffsetY(0);
 				player.animation.setOffsetX(0);
-				if (!checkEntityCollision(0,2)) player.moveY(2);
+				if (!checkEntityCollision(0,2)) player.moveY(player.getSpeed());
 			} else {
 				player.animation.stop();
 			}
 	
 		
 	}
+	
+	private void moveMonster() {
+		
+		//System.out.println(h);
+		if (checkMonsterCollisionPlayer()) {
+			monster.animation.stop();
+		}
+		else {
+		if(h == 1) { // left
+			monster.animation.play();
+			monster.animation.setOffsetY(32);
+			monster.animation.setOffsetX(32*6);
+			
+			if (!checkMonsterCollision(-2,0)) 
+				monster.moveX(-monster.getSpeed());  
+			else do {
+				h = (int) (Math.random()*4+1);
+			} while (h == 1);
+				
+		} else if (h==2) { // right
+			monster.animation.play();
+			monster.animation.setOffsetY(64);
+			monster.animation.setOffsetX(32*6);
+			if (!checkMonsterCollision(2,0)) {
+				//System.out.println(checkMonsterCollision(2, 0));
+				monster.moveX(monster.getSpeed());
+			}
+			else do {
+				h = (int) (Math.random()*4+1);
+			} while (h == 2);
+			
+			} else if (h==3) { // up
+				monster.animation.play();
+				monster.animation.setOffsetY(96);
+				monster.animation.setOffsetX(32*6);
+				if (!checkMonsterCollision(0,-2)) 
+					monster.moveY(-monster.getSpeed());
+				else do {
+					h = (int) (Math.random()*4+1);
+				} while (h == 3);
+			}else if (h==4) {
+				monster.animation.play();
+				monster.animation.setOffsetY(0);
+				monster.animation.setOffsetX(32*6);
+				if (!checkMonsterCollision(0,2)) 
+					monster.moveY(monster.getSpeed());
+				else do {
+					h = (int) (Math.random()*4+1);
+				} while (h == 4);
+			}
+	
+		}
+	}
+
+	private boolean checkMonsterCollisionPlayer() {
+		Rectangle playerBound = new Rectangle(player.getTranslateX()+ 10, (player.getTranslateY() + 25), player.getWidth()-10, player.getHeight() - 18);
+    	if(playerBound.intersects((monster.getTranslateX()+100+8 ), (monster.getTranslateY() + 100+16 ), monster.getWidth()-20, monster.getHeight()-20)){ // co giao cat
+                return true;
+    	}
+		return false;
+	}
+
+
 
 	private void initializeStage() {
 		gamePane = new AnchorPane();
@@ -182,6 +283,9 @@ public class GameViewManager{
 		player.setLayoutX(0);
 		player.setLayoutY(0);
 		gamePane.getChildren().addAll(player);
+		monster.setLayoutX(100);
+		monster.setLayoutY(100);
+		gamePane.getChildren().addAll(monster);
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -286,17 +390,24 @@ public class GameViewManager{
 		this.menuStage = menuStage;
 		this.menuStage.hide();
 		createGameLoop();
+		
 		gameStage.show();
 		
 	}
 
 	private void createGameLoop() {
+		
+		h = (int) (Math.random()*4+1);
+		 //h = 2;
+	
 		AnimationTimer timer = new AnimationTimer() {
-
+			
 			@Override
 			public void handle(long now) {
-				//if (!Collision(player,grass1)) 
+				 
+					moveMonster();
 					moveCharacter();
+					
 			}
 			
 		};
