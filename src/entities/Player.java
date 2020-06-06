@@ -265,24 +265,20 @@ public class Player extends Entity {
     public boolean checkEntityCollision(float xOffset, float yOffset) { // kiem tra va cham cua thuc the
         for(Entity e: collisions){ // nhan danh sach cac thuc the 
         	if (e.getName().equals("tree")) {
-        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
-        		//Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 25, Bound.getWidth() - 2, Bound.getHeight() - 30);
-        		Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 1, Bound.getWidth() - 1 , Bound.getHeight() - 4);
+        		Rectangle entityBound = new Rectangle(e.getLayoutX() + 1, e.getLayoutY() + 1, e.width - 1 , e.height - 4);
             	if(entityBound.intersects((this.getTranslateX()+ 10 + xOffset), (this.getTranslateY() + 25 + yOffset), this.getWidth()-20, this.getHeight() - 28)){ // co giao cat
                         return true;
             	}
                     
             }
         	if (e.getName().equals("rock")) {
-        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
-        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), Bound.getWidth(), Bound.getHeight());
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), e.width, e.height);
             	if(entityBound.intersects((this.getTranslateX()+10 + xOffset), (this.getTranslateY() + 20 + yOffset), this.getWidth()-20, this.getHeight()-20)){ // co giao cat
                         return true;
             	}
         	}
         	if (e.getName().equals("water")) {
-        		Rectangle Bound = e.getCollisionBounds(0f, 0f);
-        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), Bound.getWidth(), Bound.getHeight());
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), e.width, e.height);
             	if(entityBound.intersects((this.getTranslateX()+8 + xOffset), (this.getTranslateY() + 16 + yOffset), this.getWidth()/2, this.getHeight()/2)){ // co giao cat
                         return true;
             	}
