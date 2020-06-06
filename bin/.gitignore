@@ -1,7 +1,7 @@
-/.DS_Store
-/.settings
-/.classpath
-/.project
+/entities/
+/view/
+/model/
+
 # Compiled class file
 *.class
 
