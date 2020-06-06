@@ -22,7 +22,7 @@ public class Monster extends Entity{
 	int hp = 100;
 	int speed = 2;
 	
-	private ArrayList<Entity> collisions = new ArrayList<>();
+	public ArrayList<Entity> collisions = new ArrayList<>();
 	
 	Rectangle removeRect = null;
 	public SpriteAnimation animation;
