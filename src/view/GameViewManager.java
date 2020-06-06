@@ -27,7 +27,7 @@ import model.MODE;
 public class GameViewManager {
 	private static final int tile_width = 64, tile_height = 64;
 	private static final int ncols = 32, nrows = 20; // number of rows & columns of map
-	private static final int GAME_WIDTH = tile_width*ncols, GAME_HEIGHT = tile_height*nrows;
+	private static final int GAME_WIDTH = ncols*tile_width, GAME_HEIGHT = nrows*tile_height;
 	private static int [][] tile = new int[100][100];
 	private static boolean [][] visited = new boolean[100][100];
 	private ArrayList<Entity> gameObject2D = new ArrayList<>();
@@ -157,12 +157,12 @@ public class GameViewManager {
 	            	if (tile[row][col] == 2) {
 	            		gc.drawImage(tree, tile_width*col, tile_height*row, tile_width, tile_height);
 	            		visited(tree, row, col);
-	            		gameObject2D.add(new Entity(imageView, "tree", 256, 256, tile_width, tile_height));
+	            		gameObject2D.add(new Entity(imageView, "tree", tile_width*col, tile_height*row, tile_width, tile_height));
 	            	}
 	            	else if (tile[row][col] == 3) {
 	            		gc.drawImage(rock, tile_width*col, tile_height*row, 35, 27);
 	            		visited(rock, row, col);
-	            		gameObject2D.add(new Entity(imageView, "rock", 480, 355, 35, 27));
+	            		gameObject2D.add(new Entity(imageView, "rock", tile_width*col, tile_height*row, 35, 27));
 	            	}
 	            	else if (tile[row][col] == 4) {
 	            		gc.drawImage(dirt, tile_width*col, tile_height*row, tile_width, tile_height);
@@ -171,7 +171,7 @@ public class GameViewManager {
 	            	else if(tile[row][col] == 5) {
 						gc.drawImage(water, tile_width*col, tile_height*row, tile_width, tile_height);
 						visited(water, row, col);
-	            		gameObject2D.add(new Entity(imageView, "water", 192, 256, tile_width, tile_height));	
+	            		gameObject2D.add(new Entity(imageView, "water", tile_width*col, tile_height*row, tile_width, tile_height));	
 					}
 //	            	else continue;
             	}
