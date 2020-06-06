@@ -24,7 +24,7 @@ public class Player extends Entity {
 //    private boolean isFacingUp = false;
 //    private boolean isFacingLeft = false;
 
-    private ArrayList<Entity> collisions = new ArrayList<>();
+    public ArrayList<Entity> collisions = new ArrayList<>();
     
     public Player(ImageView imageView) {
     	this.setLayoutX(0);
