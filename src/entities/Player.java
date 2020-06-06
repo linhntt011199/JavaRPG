@@ -283,6 +283,16 @@ public class Player extends Entity {
                         return true;
             	}
         	}
+        	
+        	if (e.getName().equals("monster")) {
+        		//System.out.println(e.getName());
+        		Rectangle entityBound = new Rectangle(e.getTranslateX() + e.getLayoutX()-15, e.getTranslateY()+e.getLayoutY()-2, e.getWidth()/2, e.getHeight()-3);
+        		System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
+            	if(entityBound.intersects((this.getTranslateX() + xOffset), (this.getTranslateY()  + yOffset), this.getWidth()/2, this.getHeight()/2)){ // co giao cat
+            		System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
+                        return true;
+            	}
+        	}
         }
         return false; // khong co va cham
     }

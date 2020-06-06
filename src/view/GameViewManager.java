@@ -40,9 +40,9 @@ public class GameViewManager {
 	private boolean movingUp;
 	private boolean movingDown;
 	private Player player;
-	private Monster monster;
+	private Monster monster1, monster2;
 	
-	private int h;
+	
 	
 	public GameViewManager() {
 		initinalizeStage();
@@ -115,8 +115,11 @@ public class GameViewManager {
 		readFile();
 		loadWorld(gc);
 		gamePane.getChildren().add(canvas);
-		createPlayer();
 		createMonster();
+		gameObject2D.add(monster1);
+		gameObject2D.add(monster2);
+		createPlayer();
+		
 		createGameLoop();
 		gameStage.show();
 	}
@@ -130,11 +133,21 @@ public class GameViewManager {
 	}
 	
 	private void createMonster() {
-		Image image = new Image("view/resources/EntitySet.png");
-		ImageView imageView = new ImageView(image); 
-		monster = new Monster(imageView);
-		gamePane.getChildren().add(monster);
-		monster.addCollision(gameObject2D);
+		Image image1 = new Image("view/resources/EntitySet.png");
+		ImageView imageView1 = new ImageView(image1); 
+		monster1 = new Monster(imageView1, 100, 2, 400, 400, 400, 400, 32, 32, 3, 3);
+		gamePane.getChildren().add(monster1);
+		monster1.setOffsetX(32*6);
+		monster1.setOffsetY(0);
+		monster1.addCollision(gameObject2D);
+		
+		
+		
+		Image image2 = new Image("view/resources/monster.png");
+		ImageView imageView2 = new ImageView(image2); 
+		monster2 = new Monster(imageView2, 100, 2, 300, 200, 400, 400, 64, 64, 8, 8);
+		gamePane.getChildren().add(monster2);
+		monster2.addCollision(gameObject2D);
 	}
 
 	public void loadWorld(GraphicsContext gc) {
@@ -189,78 +202,22 @@ public class GameViewManager {
 	}
 
 	private void createGameLoop() {
-		h = (int) (Math.random()*4+1);
+		
 		 //h = 2;
 		AnimationTimer gameTimer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-				moveMonster();
+				monster1.moveMonster(player, 1, 2, 3, 0); // left, right, up, down
+				monster2.moveMonster(player, 3, 1, 2, 0);
 				moveCharacter();
 			}	
 		};
 		gameTimer.start();
 	}
 	
-	private boolean checkMonsterCollisionPlayer() {
-		Rectangle playerBound = new Rectangle(player.getTranslateX()+ 10, (player.getTranslateY() + 25), player.getWidth()-10, player.getHeight() - 18);
-    	if(playerBound.intersects((monster.getTranslateX()+100+8 ), (monster.getTranslateY() + 100+16 ), monster.getWidth()-20, monster.getHeight()-20)){ // co giao cat
-                return true;
-    	}
-		return false;
-	}
 	
-	private void moveMonster() {
-		
-		//System.out.println(h);
-		if (checkMonsterCollisionPlayer()) {
-			monster.animation.stop();
-		}
-		else {
-		if(h == 1) { // left
-			monster.animation.play();
-			monster.animation.setOffsetY(32);
-			monster.animation.setOffsetX(32*6);
-			
-			if (!monster.checkMonsterCollision(-2,0)) 
-				monster.moveX(-monster.getSpeed());  
-			else do {
-				h = (int) (Math.random()*4+1);
-			} while (h == 1);
-				
-		} else if (h==2) { // right
-			monster.animation.play();
-			monster.animation.setOffsetY(64);
-			monster.animation.setOffsetX(32*6);
-			if (!monster.checkMonsterCollision(2,0)) {
-				//System.out.println(checkMonsterCollision(2, 0));
-				monster.moveX(monster.getSpeed());
-			}
-			else do {
-				h = (int) (Math.random()*4+1);
-			} while (h == 2);
-			
-			} else if (h==3) { // up
-				monster.animation.play();
-				monster.animation.setOffsetY(96);
-				monster.animation.setOffsetX(32*6);
-				if (!monster.checkMonsterCollision(0,-2)) 
-					monster.moveY(-monster.getSpeed());
-				else do {
-					h = (int) (Math.random()*4+1);
-				} while (h == 3);
-			}else if (h==4) {
-				monster.animation.play();
-				monster.animation.setOffsetY(0);
-				monster.animation.setOffsetX(32*6);
-				if (!monster.checkMonsterCollision(0,2)) 
-					monster.moveY(monster.getSpeed());
-				else do {
-					h = (int) (Math.random()*4+1);
-				} while (h == 4);
-			}
 	
-		}
-	}
+	
 	
 	private void moveCharacter() {
 		if(movingLeft) {
