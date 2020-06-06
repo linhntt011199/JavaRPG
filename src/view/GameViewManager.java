@@ -130,7 +130,7 @@ public class GameViewManager {
 	}
 	
 	private void createMonster() {
-		Image image = new Image("view/resources/monster.png");
+		Image image = new Image("view/resources/EntitySet.png");
 		ImageView imageView = new ImageView(image); 
 		monster = new Monster(imageView);
 		gamePane.getChildren().add(monster);
