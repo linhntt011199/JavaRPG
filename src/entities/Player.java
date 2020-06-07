@@ -18,6 +18,9 @@ public class Player extends Entity {
     int height = 32;
     int velocity = 2;
 	public SpriteAnimation animation;
+	HealthBar healthBar;
+	private static final double healthMax = 100;
+	double health;
 	
 //	private boolean isFacingRight = false;
 //    private boolean isFacingDown = true;
@@ -33,6 +36,10 @@ public class Player extends Entity {
     	this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
     	animation = new SpriteAnimation(imageView, Duration.millis(300), count, columns, offsetX, offsetY, width, height);
     	getChildren().addAll(imageView);
+    	this.health = 100;
+    	healthBar = new HealthBar();
+    	this.getChildren().add(this.healthBar);
+    	healthBar.relocate(x + 2 + (imageView.getBoundsInLocal().getWidth()-healthBar.getBoundsInLocal().getWidth())/2, y - healthBar.getBoundsInLocal().getHeight()/2);
     }
     /** ============================= GETTERS ============================== **/
 
@@ -46,6 +53,14 @@ public class Player extends Entity {
 	
 	public int getVelocity() {
 		return velocity;
+	}
+	
+	public double getHealth() {
+		return health;
+	}
+	
+	public double getRelativeHealth() {
+		return getHealth() / healthMax;
 	}
 	
 //	public boolean isFacingRight() {
@@ -290,10 +305,17 @@ public class Player extends Entity {
         		//System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
             	if(entityBound.intersects((this.getTranslateX() + xOffset*2), (this.getTranslateY()  + yOffset*2), this.getWidth(), this.getHeight())){ // co giao cat
             		//System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
-                        return true;
+            		update();
+                    return true;
             	}
         	}
         }
         return false; // khong co va cham
+    }
+    
+    public void update() {
+    	this.health -= 1;
+    	healthBar.setValue(getRelativeHealth());
+    	
     }
 }

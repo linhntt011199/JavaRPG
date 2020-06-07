@@ -19,13 +19,15 @@ public class Monster extends Entity{
 	int height;
 	int xMove = 0;
 	int yMove = 0;
-	int hp;
+	double health;
 	int speed;
 	int dX;
 	int dY;
 	int layoutX;
 	int layoutY;
 	int h = 1;
+	HealthBar healthBar;
+	private static final double healthMax = 100;
 	
 	public ArrayList<Entity> collisions = new ArrayList<>();
 	
@@ -33,9 +35,9 @@ public class Monster extends Entity{
 	public SpriteAnimation animation;
 	public Player player;
 	
-	public Monster(ImageView imageView, String nameEntity, int hp, int speed, int layoutX, int layoutY, int dX, int dY, int width, int height, int columns, int count) {
+	public Monster(ImageView imageView, String nameEntity, int health, int speed, int layoutX, int layoutY, int dX, int dY, int width, int height, int columns, int count) {
 		this.imageView = imageView;
-		this.hp = hp;
+		this.health = health;
 		this.speed = speed;
 		this.dX = dX;
 		this.dY = dY;
@@ -51,6 +53,10 @@ public class Monster extends Entity{
 		animation = new SpriteAnimation(imageView,Duration.millis(500),count,columns,offsetX,offsetY, width, height);
 		getChildren().addAll(imageView);
 		this.nameEntity = nameEntity;
+		this.health = 100;
+    	healthBar = new HealthBar();
+    	this.getChildren().add(this.healthBar);
+    	healthBar.relocate(x + 5 + (imageView.getBoundsInLocal().getWidth()-healthBar.getBoundsInLocal().getWidth())/2, y - healthBar.getBoundsInLocal().getHeight()/2);
 	}
 	
 	
@@ -84,8 +90,12 @@ public class Monster extends Entity{
 		}
 	}
 	
-	public int getHP() {
-		return hp;
+	public double getHealth() {
+		return health;
+	}
+	
+	public double getRelativeHealth() {
+		return getHealth() / healthMax;
 	}
 	
 	public int getSpeed() {
@@ -96,11 +106,6 @@ public class Monster extends Entity{
 		this.speed = speed;
 	}
 
-	public int minusHP() {
-		hp -= 20;
-		return hp;
-	}
-	
 	public void addCollision(Entity gameObject2D) {
         collisions.add(gameObject2D);
     }
@@ -146,8 +151,8 @@ public class Monster extends Entity{
     }
 	
 	private boolean checkMonsterCollisionPlayer(Player player) {
-		Rectangle playerBound = new Rectangle(player.getTranslateX()+ 10, (player.getTranslateY() + 25), player.getWidth()-10, player.getHeight() - 18);
-    	if(playerBound.intersects((this.getTranslateX()+8+layoutX ), (this.getTranslateY() +16+layoutY ), this.getWidth()-20, this.getHeight()-20)){ // co giao cat
+		Rectangle playerBound = new Rectangle(player.getTranslateX(), (player.getTranslateY()), player.getWidth(), player.getHeight());
+    	if(playerBound.intersects((this.getTranslateX()+layoutX ), (this.getTranslateY() +layoutY ), this.getWidth(), this.getHeight())){ // co giao cat
                 return true;
     	}
 		return false;
@@ -215,5 +220,13 @@ public void moveMonster(Player player, int left, int right, int up, int down) {
 	
 		}
 	}
+
+	public void update() {
+		this.health -= 1;
+		healthBar.setValue(getRelativeHealth());
+	
+}
+
+	
 	
 }
