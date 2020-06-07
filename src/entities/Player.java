@@ -247,7 +247,7 @@ public class Player extends Entity {
     public void moveX(int x) {
 		boolean right = x>0?true:false;
 		for(int i = 0; i < Math.abs(x); i ++) {
-			if(right) {if (this.getTranslateX()<770) this.setTranslateX(this.getTranslateX() + 1);}
+			if(right) {if (this.getTranslateX()<64*32) this.setTranslateX(this.getTranslateX() + 1);}
 			else {if(this.getTranslateX()>0) this.setTranslateX(this.getTranslateX()-1);}
 			
 		}
@@ -256,7 +256,7 @@ public class Player extends Entity {
 	public void moveY(int y) {
 		boolean down = y>0?true:false;
 		for(int i = 0; i < Math.abs(y); i ++) {
-			if(down) {if (this.getTranslateY() < 570) this.setTranslateY(this.getTranslateY() + 1);}
+			if(down) {if (this.getTranslateY() < 64*20) this.setTranslateY(this.getTranslateY() + 1);}
 			else {if (this.getTranslateY()>0) this.setTranslateY(this.getTranslateY()-1);}
 			
 		}
@@ -286,10 +286,10 @@ public class Player extends Entity {
         	
         	if (e.getName().equals("monster")) {
         		//System.out.println(e.getName());
-        		Rectangle entityBound = new Rectangle(e.getTranslateX() + e.getLayoutX()-15, e.getTranslateY()+e.getLayoutY()-2, e.getWidth()/2, e.getHeight()-3);
-        		System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
-            	if(entityBound.intersects((this.getTranslateX() + xOffset), (this.getTranslateY()  + yOffset), this.getWidth()/2, this.getHeight()/2)){ // co giao cat
-            		System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
+        		Rectangle entityBound = new Rectangle(e.getTranslateX() + e.getLayoutX()+14, e.getTranslateY()+e.getLayoutY()+5, e.getWidth()-25, e.getHeight()-15);
+        		//System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
+            	if(entityBound.intersects((this.getTranslateX() + xOffset*2), (this.getTranslateY()  + yOffset*2), this.getWidth(), this.getHeight())){ // co giao cat
+            		//System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
                         return true;
             	}
         	}

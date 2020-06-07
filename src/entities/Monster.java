@@ -33,7 +33,7 @@ public class Monster extends Entity{
 	public SpriteAnimation animation;
 	public Player player;
 	
-	public Monster(ImageView imageView, int hp, int speed, int layoutX, int layoutY, int dX, int dY, int width, int height, int columns, int count) {
+	public Monster(ImageView imageView, String nameEntity, int hp, int speed, int layoutX, int layoutY, int dX, int dY, int width, int height, int columns, int count) {
 		this.imageView = imageView;
 		this.hp = hp;
 		this.speed = speed;
@@ -50,8 +50,10 @@ public class Monster extends Entity{
 		this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		animation = new SpriteAnimation(imageView,Duration.millis(500),count,columns,offsetX,offsetY, width, height);
 		getChildren().addAll(imageView);
-		this.nameEntity = "monster";
+		this.nameEntity = nameEntity;
 	}
+	
+	
 	
 	public Rectangle getCollisionBounds(float xOffset, float yOffset) { // gioi han va cham
 	    	// xOffset: do lech x
