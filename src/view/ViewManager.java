@@ -1,6 +1,6 @@
 package view;
 
-import model.infoLabel;
+import model.InfoLabel;
 import model.SHIP;
 import model.ShipPicker;
 import view.PreViewManager;
@@ -166,7 +166,7 @@ public class ViewManager {
 		shipChooserScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(shipChooserScene);
 		
-		infoLabel chooseShipLabel = new infoLabel("CHOOSE YOUR SHIP");
+		InfoLabel chooseShipLabel = new InfoLabel("CHOOSE YOUR SHIP");
 		chooseShipLabel.setLayoutX(110);
 		chooseShipLabel.setLayoutY(40);
 		shipChooserScene.getPane().getChildren().add(chooseShipLabel);
@@ -180,7 +180,7 @@ public class ViewManager {
 		mainPane.getChildren().add(creditsSubScene);
 		
 		createCreditsSubScene2();
-		infoLabel creditsLabel = new infoLabel("TEAM MEMBER");
+		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		creditsSubScene.getPane().getChildren().add(creditsLabel);
@@ -194,7 +194,7 @@ public class ViewManager {
 		creditsSubScene2 = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(creditsSubScene2);
 		
-		infoLabel creditsLabel = new infoLabel("TEAM MEMBER");
+		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		creditsSubScene2.getPane().getChildren().add(creditsLabel);
@@ -259,7 +259,7 @@ public class ViewManager {
 		helpSubScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(helpSubScene);
 		
-		infoLabel creditsLabel = new infoLabel("HOW TO PLAY");
+		InfoLabel creditsLabel = new InfoLabel("HOW TO PLAY");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		helpSubScene.getPane().getChildren().add(creditsLabel);

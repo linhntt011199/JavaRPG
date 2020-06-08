@@ -15,12 +15,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class infoLabel extends Label {
+public class InfoLabel extends Label {
 	// luu tru font url
 	public final static String FONT_PATH = "src/model/resource/VNI-Truck.ttf";
 	public final static String BACKGROUND_IMAGE= "view/resource/yellow_button13.png";
 	
-	public infoLabel(String text) {
+	public InfoLabel(String text) {
 		setPrefWidth(380); // chieu rong cua anh
 		setPrefHeight(49);
 		//setPadding(new Insets(40,40,40,40));

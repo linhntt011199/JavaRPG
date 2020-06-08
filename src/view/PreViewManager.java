@@ -1,6 +1,6 @@
 package view;
 
-import model.infoLabel;
+import model.InfoLabel;
 import model.SHIP;
 import model.ShipPicker;
 import view.PreViewManager;
