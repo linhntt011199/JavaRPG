@@ -1,6 +1,5 @@
 package model;
 
-import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -10,7 +9,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
 
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 
 public class SpaceRunnerSubScene extends SubScene{

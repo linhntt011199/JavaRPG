@@ -1,37 +1,20 @@
 package view;
 
-import model.InfoLabel;
 import model.SHIP;
-import model.ShipPicker;
 import view.PreViewManager;
 
 import model.exitButtonSubScene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 
-import javafx.animation.StrokeTransition;
-import javafx.application.Application; 
-
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.ActionEvent;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.Group; 
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.control.Button;
 
 public class PreViewManager {
 	private AnchorPane preViewMainPane;

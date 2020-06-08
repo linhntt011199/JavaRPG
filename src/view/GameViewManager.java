@@ -1,14 +1,11 @@
 package view;
 
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
-
-import model.SHIP;
 
 public class GameViewManager {
 	private AnchorPane gamePane;
@@ -19,7 +16,6 @@ public class GameViewManager {
 	private static final int GAME_HEIGHT = 800;
 	
 	private Stage menuStage;
-	private ImageView ship;
 	
 	public GameViewManager() {
 		initializeStage();

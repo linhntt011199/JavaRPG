@@ -3,31 +3,20 @@ package view;
 import model.InfoLabel;
 import model.SHIP;
 import model.ShipPicker;
-import view.PreViewManager;
 
 import model.SpaceRunnerButton;
 import model.SpaceRunnerSubScene;
 import model.exitButtonSubScene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
-import javafx.animation.StrokeTransition;
-import javafx.application.Application; 
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.ActionEvent;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.Group; 
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
+//import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -40,17 +29,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 
 import java.util.List;
-import java.util.Optional;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;;
 
 
@@ -79,7 +61,6 @@ public class ViewManager {
 	
 	private final String BACKGROUND_IMAGE = "model/resource/yellow_panel.png";
 	private final String PANELEXIT = "model/resource/yellow_ribbon.png";
-	private final String GIF = "model/resource/this.gif";
 	public static final String SPLASH_GIF ="model/resource/source.gif";
 	public static final String SPLASH_GIF1 ="model/resource/this.gif";
 	
@@ -101,7 +82,7 @@ public class ViewManager {
 	private final String MEMBER4= "model/imageteam/trang.png";
 	
 	//link nhac
-	private final String MUSIC = "src/model/resource/deepside.mp3";
+	//private final String MUSIC = "src/model/resource/deepside.mp3";
 	//tao mot lít luu tru cac button
 	List<SpaceRunnerButton> menuButton;
 	List<ShipPicker> shipsList;
@@ -124,12 +105,13 @@ public class ViewManager {
 //================ Nhạc ===================================
 //**************************************************************
 //==============================================================
+	/*
 	private void createMusic() {
 	       Media sound = new Media(new File(MUSIC).toURI().toString());
 	       MediaPlayer mediaPlayer = new MediaPlayer(sound);
 	       mediaPlayer.play();
 	}
-	
+	*/
 	//trien khai cac scene hidden
 	private void showSubScene(SpaceRunnerSubScene subScene) {
 		if(sceneToHidden != null && sceneToHidden != subScene && sceneToHidden.isHidden() == false) {

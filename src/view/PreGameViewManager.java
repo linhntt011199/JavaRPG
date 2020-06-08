@@ -1,13 +1,9 @@
 package view;
 
 import javafx.animation.PauseTransition;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.SHIP;

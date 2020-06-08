@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBox;
 
 //lop nay bao gom ship image va circle image
 //circle image se bi day sau khi chon 1 trong ship
