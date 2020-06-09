@@ -32,9 +32,9 @@ public class PreViewManager {
 	private static final int WIDTH = 1024;
 	
 	//anh
-	private final String MENU_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/menu.png');";
-	private final String SETTINGS_MUSIC_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/play.png');";
-	private final String MUSIC = "src/model/resource/deepside.mp3";
+	private final String MENU_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/menu.png');";
+	private final String SETTINGS_MUSIC_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/play.png');";
+	private final String MUSIC = "src/model/resources/deepside.mp3";
 	
 	private Stage menuStage;
 	MediaPlayer mediaPlayer;
@@ -134,7 +134,7 @@ public class PreViewManager {
 	
 	private void createBackground() {
 		// doc duoc anh nen
-		Image backgroundImage = new Image("view/resource/background.png", 1024,768,false, true);
+		Image backgroundImage = new Image("view/resources/background.png", 1024,768,false, true);
 		BackgroundImage background = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
 		preViewMainPane.setBackground(new Background(background));
 		
@@ -147,7 +147,7 @@ public class PreViewManager {
 	}
 	
 	private void createLogo() {
-		ImageView logo = new ImageView("view/resource/logo1.png");
+		ImageView logo = new ImageView("view/resources/logo1.png");
 		logo.setLayoutX(200);
 		logo.setLayoutY(200);
 		

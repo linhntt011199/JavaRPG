@@ -14,8 +14,8 @@ public class ModeChooser extends VBox{
 	private ImageView modeImage;
 	
 	// bao gom Url cho filled circle image va empty circle image
-	private String circleNotChosen = "view/resource/modechooser/grey_circle.png";
-	private String circleChosen  = "view/resource/modechooser/yellow_boxTick.png";
+	private String circleNotChosen = "view/resources/modechooser/grey_circle.png";
+	private String circleChosen  = "view/resources/modechooser/yellow_boxTick.png";
 	
 	private MODE mode;
 	//nut do co duoc chon hay khong

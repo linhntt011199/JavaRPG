@@ -45,9 +45,27 @@ public class PreGameViewManager {
 		visiblePause.play();
 	}
 	
-	public void createPreNewGame(Stage menuStage, MODE choosenMode) {
+	public void createPreNewGame(Stage menuStage, MODE chosenMode) {
 		this.menuStage = menuStage;
 		this.menuStage.hide();
 		preGameStage.show();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		GameViewManager gameView = new GameViewManager();
+		gameView.createNewGame(preGameStage, chosenMode);
 	}
+	
+//	static void pause(long millisecond){
+//	    long Time0 = System.currentTimeMillis();
+//	    long Time1;
+//	    long runTime = 0;
+//	    while (runTime < millisecond) { // 1000 milliseconds = 1 second
+//	        Time1 = System.currentTimeMillis();
+//	        runTime = Time1 - Time0;
+//	    }
+//	}
 }

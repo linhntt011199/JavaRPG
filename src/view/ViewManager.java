@@ -61,24 +61,24 @@ public class ViewManager {
 	//tao noi luu tru subscene
 	private RPGSubScene sceneToHidden;
 	
-	private final String BACKGROUND_IMAGE = "model/resource/yellow_panel.png";
-	private final String PANELEXIT = "model/resource/yellow_ribbon.png";
-	private final String CHARACTOR = "model/resource/charactor.png";
-	public static final String SPLASH_GIF ="model/resource/source.gif";
-	public static final String SPLASH_GIF1 ="model/resource/this.gif";
+	private final String BACKGROUND_IMAGE = "model/resources/yellow_panel.png";
+	private final String PANELEXIT = "model/resources/yellow_ribbon.png";
+	private final String CHARACTOR = "model/resources/charactor.png";
+	public static final String SPLASH_GIF ="model/resources/source.gif";
+	public static final String SPLASH_GIF1 ="model/resources/this.gif";
 	
 //	private static final int tile_width = 64, tile_height = 64;
 //	private static final int ncols = 32, nrows = 20;
 	
 	//link anh
-	private final String FONT_PATH = "src/model/resource/VCENTI.TTF";		// dung trong thong tin
-	private final String FONT_PATH2 = "src/model/resource/VNI-Truck.ttf"; // dung trong cac nut
-	private final String BUTTON= "-fx-background-color: transparent; -fx-background-image: url('model/resource/start.png');";
-	private final String BUTTONEXITSUBSCENE= "-fx-background-color: transparent; -fx-background-image: url('model/resource/face_on_cross.png');";
-	private final String BUTTON_SLIDER_RIGHT= "-fx-background-color: transparent; -fx-background-image: url('model/resource/arrow.png');";
-	private final String BUTTON_SLIDER_LEFT= "-fx-background-color: transparent; -fx-background-image: url('model/resource/arrow2.png');";
-	private final String YES_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/yes_button.png')";
-	private final String NO_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/no_button.png')";
+	private final String FONT_PATH = "src/model/resources/VCENTI.TTF";		// dung trong thong tin
+	private final String FONT_PATH2 = "src/model/resources/VNI-Truck.ttf"; // dung trong cac nut
+	private final String BUTTON= "-fx-background-color: transparent; -fx-background-image: url('model/resources/start.png');";
+	private final String BUTTONEXITSUBSCENE= "-fx-background-color: transparent; -fx-background-image: url('model/resources/face_on_cross.png');";
+	private final String BUTTON_SLIDER_RIGHT= "-fx-background-color: transparent; -fx-background-image: url('model/resources/arrow.png');";
+	private final String BUTTON_SLIDER_LEFT= "-fx-background-color: transparent; -fx-background-image: url('model/resources/arrow2.png');";
+	private final String YES_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/yes_button.png')";
+	private final String NO_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/no_button.png')";
 	
 	
 	//---- anh thanh vien
@@ -88,12 +88,12 @@ public class ViewManager {
 	private final String MEMBER4= "model/imageteam/trang.png";
 	private final String MEMBER5= "model/imageteam/trang.png";
 	
-	private final String NUMBER1= "model/resource/number_1.png";
+	private final String NUMBER1= "model/resources/number_1.png";
 	
 	List<RPGButton> menuButton;
 	List<ModeChooser> modesList;
 	
-	private MODE choosenMode;
+	private MODE chosenMode;
 	
 	public Stage getMainStage() {
 		return preViewMainStage;
@@ -136,7 +136,7 @@ public class ViewManager {
 			public void handle(ActionEvent event) {
 				PreViewManager preViewManager = new PreViewManager();
 				preViewManager.createNewGame(mainStage);
-				}
+			}
 		});
 		return startButton;
 	}
@@ -394,7 +394,7 @@ public class ViewManager {
 						mode.setIscircleChosen(false);
 					}
 					modeToPick.setIscircleChosen(true);
-					choosenMode = modeToPick.getMode();
+					chosenMode = modeToPick.getMode();
 				}
 			});
 		}
@@ -412,9 +412,9 @@ public class ViewManager {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				if (choosenMode != null) {
+				if (chosenMode != null) {
 					PreGameViewManager preNewGame = new PreGameViewManager();
-					preNewGame.createPreNewGame(mainStage, choosenMode);
+					preNewGame.createPreNewGame(mainStage, chosenMode);
 				}
 			}
 		});
@@ -543,7 +543,7 @@ public class ViewManager {
 	// set background
 	private void createBackground() {
 		// doc duoc anh nen
-		Image backgroundImage = new Image("view/resource/background3.png", 1024,768,false, true);
+		Image backgroundImage = new Image("view/resources/background3.png", 1024,768,false, true);
 		BackgroundImage background = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
 		mainPane.setBackground(new Background(background));
 	}
@@ -552,7 +552,7 @@ public class ViewManager {
 //**************************************************************
 //==============================================================
 	private void createLogo() {
-		ImageView logo = new ImageView("view/resource/logo.png");
+		ImageView logo = new ImageView("view/resources/logo.png");
 		logo.setFitHeight(120);
 		logo.setFitWidth(500);
 		logo.setLayoutX(400);

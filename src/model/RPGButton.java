@@ -14,10 +14,10 @@ import javafx.scene.paint.Color;
 
 public class RPGButton extends Button {
 	// xac dinh kieu nut khi no suoc kao vao tha ra.
-	private final String FONT_PATH = "src/model/resource/VNI-Truck.ttf";
+	private final String FONT_PATH = "src/model/resources/VNI-Truck.ttf";
 	//dinh nghia style nut
-	private final String BUTTON_PRESSED_STYLE= "-fx-background-color: transparent; -fx-background-image: url('model/resource/yellow_button01.png');";
-	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('model/resource/yellow_button.png');";
+	private final String BUTTON_PRESSED_STYLE= "-fx-background-color: transparent; -fx-background-image: url('model/resources/yellow_button01.png');";
+	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('model/resources/yellow_button.png');";
 	
 	// constructor
 	public RPGButton(String text, int a) {

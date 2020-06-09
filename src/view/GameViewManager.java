@@ -117,9 +117,10 @@ public class GameViewManager {
         }		
 	}
 	
-	public void createNewGame(Stage menuStage, MODE choosenMode) {
+	public void createNewGame(Stage menuStage, MODE chosenMode) {
 		this.menuStage = menuStage;
 		this.menuStage.hide();
+		gameStage.getIcons().add(new Image("model/resources/start.png"));
 		Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		readFile();

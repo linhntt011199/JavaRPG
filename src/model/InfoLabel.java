@@ -15,8 +15,8 @@ import java.io.FileNotFoundException;
 
 public class InfoLabel extends Label {
 	// luu tru font url
-	public final static String FONT_PATH = "src/model/resource/VNI-Truck.ttf";
-	public final static String BACKGROUND_IMAGE= "view/resource/yellow_button13.png";
+	public final static String FONT_PATH = "src/model/resources/VNI-Truck.ttf";
+	public final static String BACKGROUND_IMAGE= "view/resources/yellow_button13.png";
 	
 	public InfoLabel(String text) {
 		setPrefWidth(380); // chieu rong cua anh
