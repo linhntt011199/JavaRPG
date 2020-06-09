@@ -52,7 +52,7 @@ public class Monster extends Entity{
 		this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		animation = new SpriteAnimation(imageView,Duration.millis(500),count,columns,offsetX,offsetY, width, height);
 		getChildren().addAll(imageView);
-		this.nameEntity = nameEntity;
+		this.entityName = nameEntity;
 		this.health = 100;
     	healthBar = new HealthBar();
     	this.getChildren().add(this.healthBar);
@@ -166,7 +166,7 @@ public class Monster extends Entity{
 		this.offsetY = offsetY;
 	}
 	
-public void moveMonster(Player player, int left, int right, int up, int down) { 
+	public void moveMonster(Player player, int left, int right, int up, int down) { 
 		
 		//System.out.println(h);
 		if (checkMonsterCollisionPlayer(player)) {
@@ -221,11 +221,11 @@ public void moveMonster(Player player, int left, int right, int up, int down) {
 		}
 	}
 
-	public void update() {
-		this.health -= 1;
+	public void update(int i) {
+		this.health += i;
+		if (this.health <= 0) setActive(false);
 		healthBar.setValue(getRelativeHealth());
-	
-}
+	}
 
 	
 	

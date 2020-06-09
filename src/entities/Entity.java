@@ -12,11 +12,17 @@ public class Entity extends Pane {
 	int width;
 	int height;
 	protected Rectangle bounds;
-	String nameEntity;
+	String entityName;
+	protected boolean active = true;
+	
+	private boolean isFacingRight = false;
+    private boolean isFacingDown = true;
+    private boolean isFacingUp = false;
+    private boolean isFacingLeft = false;
 	
 	public Entity(ImageView imageView, String entityName, int x, int y, int width, int height) {
 		this.imageView = imageView;
-		this.nameEntity = entityName;
+		this.entityName = entityName;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -38,9 +44,127 @@ public class Entity extends Pane {
 	 }
 
 	public String getName() {
-		return nameEntity;
+		return entityName;
 	}
-	 
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	
+	public boolean isFacingRight() {
+        boolean facing = false;
+        if (isFacingRight && !isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
+        return facing;
+    }
+
+    public boolean isFacingLeft() {
+        boolean facing = false;
+        if (!isFacingRight && !isFacingDown && !isFacingUp && isFacingLeft) facing = true;
+        return facing;
+    }
+
+    public boolean isFacingDown() {
+        boolean facing = false;
+        if (!isFacingRight && isFacingDown && !isFacingUp && !isFacingLeft) facing = true;
+        return facing;
+    }
+
+    public boolean isFacingUp() {
+        boolean facing = false;
+        if (!isFacingRight && !isFacingDown && isFacingUp && !isFacingLeft) facing = true;
+        return facing;
+    }
+
+    // diagonal
+    public boolean isFacingUpRight() {
+        boolean facing = false;
+        if (isFacingRight && isFacingUp) facing = true;
+
+        return facing;
+    }
+
+    public boolean isFacingUpLeft() {
+        boolean facing = false;
+        if (isFacingLeft && isFacingUp) facing = true;
+
+        return facing;
+    }
+
+    public boolean isFacingDownRight() {
+        boolean facing = false;
+        if (isFacingRight && isFacingDown) facing = true;
+
+        return facing;
+    }
+
+    public boolean isFacingDownLeft() {
+        boolean facing = false;
+        if (isFacingDown && isFacingLeft) facing = true;
+
+        return facing;
+    }
+    
+    // face setters
+    public void setFaceRight() {
+        isFacingRight = true;
+        isFacingDown = false;
+        isFacingUp = false;
+        isFacingLeft = false;
+    }
+
+    public void setFaceLeft() {
+        isFacingRight = false;
+        isFacingDown = false;
+        isFacingUp = false;
+        isFacingLeft = true;
+    }
+
+    public void setFaceDown() {
+        isFacingRight = false;
+        isFacingDown = true;
+        isFacingUp = false;
+        isFacingLeft = false;
+    }
+
+    public void setFaceUp() {
+        isFacingRight = false;
+        isFacingDown = false;
+        isFacingUp = true;
+        isFacingLeft = false;
+    }
+
+    // diagonal faces
+    public void setFaceUpRight() {
+        isFacingRight = true;
+        isFacingDown = false;
+        isFacingUp = true;
+        isFacingLeft = false;
+    }
+
+    public void setFaceUpLeft() {
+        isFacingRight = false;
+        isFacingDown = false;
+        isFacingUp = true;
+        isFacingLeft = true;
+    }
+
+    public void setFaceDownRight() {
+        isFacingRight = true;
+        isFacingDown = true;
+        isFacingUp = false;
+        isFacingLeft = false;
+    }
+
+    public void setFaceDownLeft() {
+        isFacingRight = false;
+        isFacingDown = true;
+        isFacingUp = false;
+        isFacingLeft = true;
+    }
+	 	
 }
 
