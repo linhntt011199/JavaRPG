@@ -31,8 +31,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.effect.DropShadow;
 
 import java.util.List;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;;
 
 
@@ -44,6 +49,7 @@ public class ViewManager {
 	private Scene mainScene;
 	private Stage mainStage;
 	private Stage menuStage;
+	private Stage preViewMainStage;
 	
 	private final static int MENU_BUTTON_START_X =100;
 	private final static int MENU_BUTTON_START_Y =150;
@@ -62,8 +68,12 @@ public class ViewManager {
 	
 	private final String BACKGROUND_IMAGE = "model/resource/yellow_panel.png";
 	private final String PANELEXIT = "model/resource/yellow_ribbon.png";
+	private final String CHARACTOR = "model/resource/charactor.png";
 	public static final String SPLASH_GIF ="model/resource/source.gif";
 	public static final String SPLASH_GIF1 ="model/resource/this.gif";
+	
+	private static final int tile_width = 64, tile_height = 64;
+	private static final int ncols = 32, nrows = 20;
 	
 	//link anh
 	private final String FONT_PATH = "src/model/resource/VCENTI.TTF";		// dung trong thong tin
@@ -83,13 +93,16 @@ public class ViewManager {
 	private final String MEMBER4= "model/imageteam/trang.png";
 	private final String MEMBER5= "model/imageteam/trang.png";
 	
-	//link nhac
-	//private final String MUSIC = "src/model/resource/deepside.mp3";
-	//tao mot lÃ­t luu tru cac button
+	private final String NUMBER1= "model/resource/number_1.png";
+	
 	List<RPGButton> menuButton;
-	List<ModePicker> shipsList;
+	List<ModePicker> modesList;
 	
 	private MODE choosenMode;
+	
+	public Stage getMainStage() {
+		return preViewMainStage;
+	}
 	
 	public ViewManager() {
 		menuButton = new ArrayList<>();
@@ -101,19 +114,37 @@ public class ViewManager {
 		createButtons();
 		createBackground();
 		createLogo();
-		//createMusic();
+		mainPane.getChildren().add(buttonNextToMenu());
 	}
 
-//================ Nháº¡c ===================================
-//**************************************************************
-//==============================================================
-	/*
-	private void createMusic() {
-	       Media sound = new Media(new File(MUSIC).toURI().toString());
-	       MediaPlayer mediaPlayer = new MediaPlayer(sound);
-	       mediaPlayer.play();
+	private exitButtonSubScene buttonNextToMenu() {
+		exitButtonSubScene startButton = new exitButtonSubScene(BUTTON_SLIDER_LEFT,60,50);
+		startButton.setLayoutX(40);
+		startButton.setLayoutY(30);
+		
+		startButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				startButton.setEffect(new DropShadow());
+			}
+		});
+		
+		startButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				startButton.setEffect(null);
+			}
+		});
+		
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				PreViewManager preViewManager = new PreViewManager();
+				preViewManager.createNewGame(mainStage);
+				}
+		});
+		return startButton;
 	}
-	*/
 	//trien khai cac scene hidden
 	private void showSubScene(RPGSubScene subScene) {
 		if(sceneToHidden != null && sceneToHidden != subScene && sceneToHidden.isHidden() == false) {
@@ -130,18 +161,11 @@ public class ViewManager {
 //==============================================================
 	//khoi tao sub scene
 	private void createSubScene() {
-		helpSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
-		mainPane.getChildren().add(helpSubScene);
-		
-		scoreSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
-		mainPane.getChildren().add(scoreSubScene);
-		
-		
-		//goi pthuc tao modechoosen sub
 		createModeChooserSubScene();
 		createCreditsSubScene();
 		createCreditsSubScene2();
 		createCreditsSubScene3();
+		createScoreSubScene();
 		createExitSubScene();
 		createWaitSubScene();
 		createHelpSubScene();
@@ -170,6 +194,7 @@ public class ViewManager {
 		creditsLabel.setLayoutY(40);
 		creditsSubScene.getPane().getChildren().add(creditsLabel);
 		creditsSubScene.getPane().getChildren().add(createButtonExitSubScene());
+		//creditsSubScene.getPane().getChildren().add(createButtonNext(creditsSubScene, BUTTON_SLIDER_LEFT ));	
 		creditsSubScene.getPane().getChildren().add(createButtonNext(creditsSubScene2, BUTTON_SLIDER_RIGHT ));
 		addinfoCredits(creditsSubScene,"Nguyen Thi Thuy Linh\n"+"\t20176802",MEMBER1,210,150);
 		addinfoCredits(creditsSubScene,"Luong Duc Minh\n"+"\t20176821",MEMBER2,210,260);
@@ -185,7 +210,9 @@ public class ViewManager {
 		creditsLabel.setLayoutY(40);
 		creditsSubScene2.getPane().getChildren().add(creditsLabel);
 		creditsSubScene2.getPane().getChildren().add(createButtonExitSubScene());
+		//creditsSubScene2.getPane().getChildren().add(createButtonNext(creditsSubScene ,BUTTON_SLIDER_LEFT));
 		creditsSubScene2.getPane().getChildren().add(createButtonNext(creditsSubScene3 ,BUTTON_SLIDER_RIGHT));
+		
 		addinfoCredits(creditsSubScene2,"Nguyen Thanh Ha\n"+"\t20176742",MEMBER3,210,150);
 		addinfoCredits(creditsSubScene2,"Hoang Thi Thu Trang\n"+"\t20176891",MEMBER4,210,260);
 	}
@@ -261,11 +288,32 @@ public class ViewManager {
 		InfoLabel creditsLabel = new InfoLabel("HOW TO PLAY");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
+		
+		ImageView imageView = new ImageView(CHARACTOR);
+		imageView.setX(400);
+		imageView.setY(150);
+		imageView.setFitHeight(118);
+		imageView.setFitWidth(100);
 		helpSubScene.getPane().getChildren().add(creditsLabel);
 		helpSubScene.getPane().getChildren().add(createButtonExitSubScene());
 		helpSubScene.getPane().getChildren().add(howToPlay());
+		helpSubScene.getPane().getChildren().add(imageView);
+		
 	}
-
+	
+	private void createScoreSubScene() {
+		scoreSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
+		mainPane.getChildren().add(scoreSubScene);
+		
+		InfoLabel creditsLabel = new InfoLabel("HIGH SCORE");
+		creditsLabel.setLayoutX(110);
+		creditsLabel.setLayoutY(40);
+		ImageView image = new ImageView(NUMBER1);
+		image.setX(380);
+		image.setY(120);
+		scoreSubScene.getPane().getChildren().add(creditsLabel);
+		scoreSubScene.getPane().getChildren().add(image);
+	}
 
 //======================= ChÃ¨n thÃ´ng tin =======================
 //**************************************************************
@@ -274,7 +322,6 @@ public class ViewManager {
 	private HBox howToPlay() {
         HBox box = new HBox();
         box.setSpacing(20);
-       
         String status = "- Sử dụng mũi tên để điều khiển nhân vật: \n" +
                 		"        👈 Di chuyển sang Trái. \n" +
                 		"        👉 Di chuyển sang Phải. \n" +
@@ -284,7 +331,7 @@ public class ViewManager {
                 		"\n- Để qua màn người chơi phải tiêu diệt\n" +
                 		"hết quái vật và thu thập hết vật phẩm. \n";
         Text text = new Text(status);
-        text.setFont(Font.font ("Jamiro",FontWeight.BLACK, FontPosture.REGULAR, 20));
+        text.setFont(Font.font ("Jamiro",FontWeight.BLACK, FontPosture.REGULAR, 19));
         text.setFill(Color.BLACK);
         text.setX(110);
         text.setY(110);
@@ -337,19 +384,19 @@ public class ViewManager {
 	private HBox createModesToChoose() {
 		HBox box = new HBox();
 		box.setSpacing(20);
-		shipsList = new ArrayList<>();
+		modesList = new ArrayList<>();
 		for(MODE mode : MODE.values()) { // them 1 anh vao moi ship
 			ModePicker modeToPick = new ModePicker(mode);
-			shipsList.add(modeToPick);
+			modesList.add(modeToPick);
 			box.getChildren().add(modeToPick);
 			//thiet lap hanh dong click mouse
 			modeToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					for(ModePicker ship: shipsList) {
+					for(ModePicker mode: modesList) {
 						//neu click vao 1 trong cac ships, moi ship deu thiet lap thanh flase
 						//co nghia la no khong duoc chon
-						ship.setIsCircleChoosen(false);
+						mode.setIsCircleChoosen(false);
 					}
 					modeToPick.setIsCircleChoosen(true);
 					choosenMode = modeToPick.getShip();
@@ -357,7 +404,7 @@ public class ViewManager {
 			});
 		}
 		box.setLayoutX(300-(118*2));
-		box.setLayoutY(130);
+		box.setLayoutY(140);
 		return box;
 	}
 	
@@ -435,7 +482,7 @@ public class ViewManager {
 //**************************************************************
 //==============================================================
 	private void createStarButton() {
-		RPGButton starButton = new RPGButton("PLAY",23);
+		RPGButton starButton = new RPGButton("PLAY",25);
 		addMenuButton(starButton);
 		
 		starButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -447,7 +494,7 @@ public class ViewManager {
 	}
 	
 	private void createScoreButton() {
-		RPGButton scoreButton = new RPGButton("SCORES",23);
+		RPGButton scoreButton = new RPGButton("SCORES",25);
 		addMenuButton(scoreButton);
 		
 		scoreButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -459,7 +506,7 @@ public class ViewManager {
 	}
 	
 	private void createHelpButton() {
-		RPGButton helpButton = new RPGButton("HELP",23);
+		RPGButton helpButton = new RPGButton("HELP",25);
 		addMenuButton(helpButton);
 		
 		helpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -471,7 +518,7 @@ public class ViewManager {
 	}
 	
 	private void createCreditsButton() {
-		RPGButton creditsButton = new RPGButton("CREDITS",23);
+		RPGButton creditsButton = new RPGButton("CREDITS",25);
 		addMenuButton(creditsButton);
 		
 		// ket noi nut credit voi credit scene
@@ -484,7 +531,7 @@ public class ViewManager {
 	}
 	
 	private void createExitButton() {
-		RPGButton exitButton = new RPGButton("EXIT",23);
+		RPGButton exitButton = new RPGButton("EXIT",25);
 		addMenuButton(exitButton);
 		
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {

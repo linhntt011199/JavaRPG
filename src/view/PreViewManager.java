@@ -34,7 +34,7 @@ public class PreViewManager {
 	
 	//anh
 	private final String MENU_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/menu.png');";
-	private final String SETTINGS_MUSIC_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/settings.png');";
+	private final String SETTINGS_MUSIC_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resource/play.png');";
 	private final String MUSIC = "src/model/resource/deepside.mp3";
 	
 	private Stage menuStage;
@@ -51,7 +51,7 @@ public class PreViewManager {
 		createBackground();
 		preViewMainPane.getChildren().add(buttonNextToMenu());
 		createMusic();
-		preViewMainPane.getChildren().add(buttonOnOffMusic(SETTINGS_MUSIC_BUTTON,mediaPlayer));
+		preViewMainPane.getChildren().add(buttonOnOffMusic(mediaPlayer));
 		
 		createLogo();
 	}
@@ -63,10 +63,11 @@ public class PreViewManager {
 	       
 	}
 	//================================
-	private exitButtonSubScene buttonOnOffMusic(String image, MediaPlayer mediaplayer) {
+	private exitButtonSubScene buttonOnOffMusic( MediaPlayer mediaplayer) {
+		String image = SETTINGS_MUSIC_BUTTON;
 		exitButtonSubScene onOffButton = new exitButtonSubScene(image,50,50);
 		onOffButton.setLayoutX(920);
-		onOffButton.setLayoutY(710);
+		onOffButton.setLayoutY(680);
 		
 		onOffButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -74,7 +75,7 @@ public class PreViewManager {
 				//ktra xem nut cua ng dunfg nhap vao co phai nut chuot chinh hya k
 				if(event.getButton().equals(MouseButton.PRIMARY)) {
 					//neu la nut ben trai thi thiet lap duoc bo cuc
-					mediaPlayer.pause();
+					mediaPlayer.pause();	
 					if(event.getClickCount() == 2) {
 						mediaPlayer.play();
 					}
@@ -89,9 +90,9 @@ public class PreViewManager {
 					//neu la nut ben trai thi thiet lap duoc bo cuc
 					if(event.getButton().equals(MouseButton.PRIMARY)) {
 						//neu la nut ben trai thi thiet lap duoc bo cuc
-						mediaPlayer.pause();
+						mediaPlayer.pause();					
 						if(event.getClickCount() == 2) {
-							mediaPlayer.play();
+							mediaPlayer.play();	
 						}
 					}
 				}
@@ -105,7 +106,7 @@ public class PreViewManager {
 	private exitButtonSubScene buttonNextToMenu() {
 		exitButtonSubScene startButton = new exitButtonSubScene(MENU_BUTTON,100,100);
 		startButton.setLayoutX(900);
-		startButton.setLayoutY(600);
+		startButton.setLayoutY(550);
 		
 		startButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -140,7 +141,7 @@ public class PreViewManager {
 		
 	}
 	
-	public void createNewGame(Stage menuStage, MODE choosenShip) {
+	public  void createNewGame(Stage menuStage) {
 		this.menuStage = menuStage;
 		this.menuStage.hide();
 		preViewMainStage.show();
