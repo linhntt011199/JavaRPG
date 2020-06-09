@@ -300,12 +300,11 @@ public class Player extends Entity {
         	}
         	
         	if (e.getName().equals("monster")) {
-        		//System.out.println(e.getName());
         		Rectangle entityBound = new Rectangle(e.getTranslateX() + e.getLayoutX()+14, e.getTranslateY()+e.getLayoutY()+5, e.getWidth()-25, e.getHeight()-15);
         		//System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
             	if(entityBound.intersects((this.getTranslateX() + xOffset*2), (this.getTranslateY()  + yOffset*2), this.getWidth(), this.getHeight())){ // co giao cat
             		//System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
-            		update();
+            		update(-1);
                     return true;
             	}
         	}
@@ -313,10 +312,9 @@ public class Player extends Entity {
         return false; // khong co va cham
     }
     
-    public void update() {
-    	this.health -= 1;
+    public void update(int i) {
+    	this.health += i;
+    	if (this.health <= 0) setActive(false);
     	healthBar.setValue(getRelativeHealth());
-    	
-    	
     }
 }

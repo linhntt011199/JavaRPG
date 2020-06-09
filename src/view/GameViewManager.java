@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import entities.Entity;
+import entities.Magic;
 import entities.Monster;
 import entities.Player;
 import javafx.animation.AnimationTimer;
@@ -20,7 +21,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.MODE;
 
@@ -39,10 +39,12 @@ public class GameViewManager {
 	private boolean movingLeft;
 	private boolean movingUp;
 	private boolean movingDown;
+	private boolean isSpacePressed;
 	private Player player;
 	private Monster monster1, monster2;
-	
-	
+	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
+	private ArrayList<Magic> magic = new ArrayList<Magic>();
+	private boolean shootingDelay = false;
 	
 	public GameViewManager() {
 		initinalizeStage();
@@ -69,7 +71,9 @@ public class GameViewManager {
 					movingUp = true;
 				} else if (event.getCode() == KeyCode.DOWN) {
 					movingDown = true;
-				} 
+				} else if (event.getCode() == KeyCode.SPACE) {
+					isSpacePressed = true;
+				}
 			}
 		});
 		
@@ -84,7 +88,9 @@ public class GameViewManager {
 					movingUp = false;
 				} else if (event.getCode() == KeyCode.DOWN) {
 					movingDown = false;
-				} 
+				} else if (event.getCode() == KeyCode.SPACE) {
+					isSpacePressed = false;
+				}
 			}
 		});
 	}
@@ -190,9 +196,6 @@ public class GameViewManager {
             	}
             }
         }
-        for (Entity e : gameObject2D) {
-        	System.out.println("x: " + e.getLayoutX() + "y: " + e.getLayoutY());
-        }
     }
 	
 	private void visited(WritableImage image, int dx, int dy) {
@@ -210,84 +213,112 @@ public class GameViewManager {
 				monster1.moveMonster(player, 1, 2, 3, 0); // left, right, up, down
 				monster2.moveMonster(player, 3, 1, 2, 0);
 				moveCharacter();
+				attack();
 			}	
 		};
 		gameTimer.start();
 	}
 	
-	
-	
-	
-	
 	private void moveCharacter() {
-		
 		if(movingLeft) {
 			if (movingUp) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(32);
-					if (!player.checkEntityCollision(-2,-2)) {
-						player.moveX(-2);
-						player.moveY(-2);
-					} else {
+				player.setFaceUpLeft();
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(32);
+				if (!player.checkEntityCollision(-2,-2)) {
+					player.moveX(-2);
+					player.moveY(-2);
+				} else {
 //						System.out.println(player.gethealth());
 //						if (player.minushealth() <= 0) gamePane.getChildren().remove(player);
-					}
-					
 				}
-				else if(movingDown) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(0);
-					if (!player.checkEntityCollision(-2,2)) {
-						player.moveX(-2);
-						player.moveY(2);
-					}
-				}
-				else {
-					player.animation.play();
-					player.animation.setOffsetY(32);
-					player.animation.setOffsetX(0);
-					if (!player.checkEntityCollision(-2,0)) player.moveX(-2);
-				}
-				
-		} else if (movingRight) {
-				if (movingUp) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(96);
-					if (!player.checkEntityCollision(2,-2)) {
-						player.moveX(2);
-						player.moveY(-2);
-					}
-				}
-				else if(movingDown) {
-					player.animation.play();
-					player.animation.setOffsetX(96);
-					player.animation.setOffsetY(64);
-					if (!player.checkEntityCollision(2,2)) {
-						player.moveX(2);
-						player.moveY(2);
-					}				
-				}
-				else {
-					player.animation.play();
-					player.animation.setOffsetY(64);
-					player.animation.setOffsetX(0);
-					if (!player.checkEntityCollision(2,0)) player.moveX(2);
-				}
-		} else if (movingUp) {
+			} else if(movingDown) {
+				player.setFaceDownLeft();
 				player.animation.play();
-				player.animation.setOffsetY(96);
-				player.animation.setOffsetX(0);
-				if (!player.checkEntityCollision(0,-2)) player.moveY(-2);
-		} else if (movingDown) {
-				player.animation.play();
+				player.animation.setOffsetX(96);
 				player.animation.setOffsetY(0);
-				player.animation.setOffsetX(0);
-				if (!player.checkEntityCollision(0,2)) player.moveY(2);
+				if (!player.checkEntityCollision(-2,2)) {
+					player.moveX(-2);
+					player.moveY(2);
+				}
 			} else {
-				player.animation.stop();
+				player.setFaceLeft();
+				player.animation.play();
+				player.animation.setOffsetY(32);
+				player.animation.setOffsetX(0);
+				if (!player.checkEntityCollision(-2,0)) player.moveX(-2);
+			}		
+		} else if (movingRight) {
+			if (movingUp) {
+				player.setFaceUpRight();
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(96);
+				if (!player.checkEntityCollision(2,-2)) {
+					player.moveX(2);
+					player.moveY(-2);
+				}
+			} else if(movingDown) {
+				player.setFaceDownRight();
+				player.animation.play();
+				player.animation.setOffsetX(96);
+				player.animation.setOffsetY(64);
+				if (!player.checkEntityCollision(2,2)) {
+					player.moveX(2);
+					player.moveY(2);
+				}				
+			} else {
+				player.animation.play();
+				player.setFaceRight();
+				player.animation.setOffsetY(64);
+				player.animation.setOffsetX(0);
+				if (!player.checkEntityCollision(2,0)) player.moveX(2);
+			}
+		} else if (movingUp) {
+			player.setFaceUp();
+			player.animation.play();
+			player.animation.setOffsetY(96);
+			player.animation.setOffsetX(0);
+			if (!player.checkEntityCollision(0,-2)) player.moveY(-2);
+		} else if (movingDown) {
+			player.setFaceDown();
+			player.animation.play();
+			player.animation.setOffsetY(0);
+			player.animation.setOffsetX(0);
+			if (!player.checkEntityCollision(0,2)) player.moveY(2);
+		} else {
+			player.animation.stop();
+		}
+	}
+	
+	public void attack() {
+//		System.out.println("Size: "+magic.size()+" Delay: "+shootingDelay);
+		for (Magic e : magic) {
+			if(e.isActive()) {
+				e.move();
+				shootingDelay = true;
+			} else {
+				gamePane.getChildren().remove(e);
+				shootingDelay = false;
+			}
+			for (Entity c : e.collisions) {
+				if (!c.isActive()) {
+					gamePane.getChildren().remove(c);
+					player.collisions.remove(c);
+				}
 			}
 		}
+		if (isSpacePressed) {
+			if (shootingDelay == false) {
+				Magic magic_element = new Magic(fireball, player, (float) player.getTranslateX(), (float) player.getTranslateY());
+				magic.add(magic_element);
+				gamePane.getChildren().add(magic_element);
+				magic_element.collisions.add(monster1);
+				magic_element.collisions.add(monster2);
+				magic_element.collisions.addAll(gameObject2D);
+				shootingDelay = true;
+			}
+		}
+	}
 }
