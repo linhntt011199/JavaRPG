@@ -6,8 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.SHIP;
-import model.SpaceRunnerSubScene;
+import model.MODE;
+import model.RPGSubScene;
 
 public class PreGameViewManager {
 	private AnchorPane preGamePane;
@@ -31,7 +31,7 @@ public class PreGameViewManager {
 	}
 	
 	private void createLoadingScene( ) {
-		SpaceRunnerSubScene loadingScene = new SpaceRunnerSubScene(SPLASH_GIF,500,256);
+		RPGSubScene loadingScene = new RPGSubScene(SPLASH_GIF,500,256);
 		loadingScene.setLayoutX(20);
 		loadingScene.setLayoutY(5);
 		preGamePane.getChildren().add(loadingScene);
@@ -45,7 +45,7 @@ public class PreGameViewManager {
 		visiblePause.play();
 	}
 	
-	public void createPreNewGame(Stage menuStage, SHIP choosenShip) {
+	public void createPreNewGame(Stage menuStage, MODE choosenMode) {
 		this.menuStage = menuStage;
 		this.menuStage.hide();
 		preGameStage.show();

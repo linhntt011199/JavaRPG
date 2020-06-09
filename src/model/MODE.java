@@ -1,20 +1,20 @@
 package model;
 
-public enum SHIP {
+public enum MODE {
 		
 		EASY("view/resource/shipchooser/easy.png"),
 		MEDIUM("view/resource/shipchooser/medium.png"),
 		HARD("view/resource/shipchooser/hard.png");
 		
-		private String urlShip;
+		private String urlMode;
 		
-		private SHIP(String urlShip) {
-			this.urlShip = urlShip;
+		private MODE(String urlMode) {
+			this.urlMode = urlMode;
 		}
 		
 		//method return url
 		public String getUrl() {
-			return this.urlShip;
+			return this.urlMode;
 		}
 }
 

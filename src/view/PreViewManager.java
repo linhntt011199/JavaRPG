@@ -1,6 +1,6 @@
 package view;
 
-import model.SHIP;
+import model.MODE;
 import view.PreViewManager;
 
 import model.exitButtonSubScene;
@@ -140,7 +140,7 @@ public class PreViewManager {
 		
 	}
 	
-	public void createNewGame(Stage menuStage, SHIP choosenShip) {
+	public void createNewGame(Stage menuStage, MODE choosenShip) {
 		this.menuStage = menuStage;
 		this.menuStage.hide();
 		preViewMainStage.show();

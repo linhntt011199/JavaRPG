@@ -11,12 +11,12 @@ import javafx.scene.image.Image;
 
 import javafx.animation.TranslateTransition;
 
-public class SpaceRunnerSubScene extends SubScene{
+public class RPGSubScene extends SubScene{
 	
 	//tao field moi neu cai subscene bị giau di
 	private boolean isHidden;
 	
-	public SpaceRunnerSubScene(String panel, int w, int h) {
+	public RPGSubScene(String panel, int w, int h) {
 		super(new AnchorPane(), w, h);
 		prefWidth(w);
 		prefHeight(h);

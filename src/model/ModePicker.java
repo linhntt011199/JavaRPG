@@ -8,35 +8,35 @@ import javafx.scene.layout.VBox;
 
 //lop nay bao gom ship image va circle image
 //circle image se bi day sau khi chon 1 trong ship
-public class ShipPicker extends VBox{
+public class ModePicker extends VBox{
 	
 	private ImageView circleImage;
-	private ImageView shipImage;
+	private ImageView modeImage;
 	
 	// bao gom Url cho filled circle image va empty circle image
 	private String circleNotChoosen = "view/resource/shipchooser/grey_circle.png";
 	private String circleChoosen  = "view/resource/shipchooser/yellow_boxTick.png";
 	
-	private SHIP ship;
+	private MODE mode;
 	//nut do co duoc chon hay khong
 	private boolean isCircleChoosen;
 	
-	public ShipPicker(SHIP ship) {
+	public ModePicker(MODE mode) {
 		//tao nut gray circle image -> nut khong duoc chon
 		circleImage = new ImageView(circleNotChoosen);
-		shipImage = new ImageView(ship.getUrl());
-		this.ship = ship;
+		modeImage = new ImageView(mode.getUrl());
+		this.mode = mode;
 		isCircleChoosen = false; // circle ban dau se o trang thai chua chon
 		// can chinh vi tri trung tam
 		this.setAlignment(Pos.CENTER);
 		this.setSpacing(20);
 		this.getChildren().add(circleImage);
 		// them image vao VBox
-		this.getChildren().add(shipImage);
+		this.getChildren().add(modeImage);
 	}
 	
-	public SHIP getShip() {
-		return ship;
+	public MODE getShip() {
+		return mode;
 	}
 	
 	public boolean getIsCircleChoosen() {

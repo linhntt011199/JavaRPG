@@ -12,7 +12,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-public class SpaceRunnerButton extends Button {
+public class RPGButton extends Button {
 	// xac dinh kieu nut khi no suoc kao vao tha ra.
 	private final String FONT_PATH = "src/model/resource/VNI-Truck.ttf";
 	//dinh nghia style nut
@@ -20,7 +20,7 @@ public class SpaceRunnerButton extends Button {
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('model/resource/yellow_button.png');";
 	
 	// constructor
-	public SpaceRunnerButton(String text, int a) {
+	public RPGButton(String text, int a) {
 		super();
 		setText(text);	// chuỗi để hiển thị
 		setButtonFont(a);

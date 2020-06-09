@@ -1,11 +1,11 @@
 package view;
 
 import model.InfoLabel;
-import model.SHIP;
-import model.ShipPicker;
+import model.MODE;
+import model.ModePicker;
 
-import model.SpaceRunnerButton;
-import model.SpaceRunnerSubScene;
+import model.RPGButton;
+import model.RPGSubScene;
 import model.exitButtonSubScene;
 import javafx.stage.Stage;
 
@@ -48,16 +48,17 @@ public class ViewManager {
 	private final static int MENU_BUTTON_START_X =100;
 	private final static int MENU_BUTTON_START_Y =150;
 	
-	private SpaceRunnerSubScene creditsSubScene;
-	private SpaceRunnerSubScene creditsSubScene2;
-	private SpaceRunnerSubScene shipChooserScene;
-	private SpaceRunnerSubScene scoreSubScene;
-	private SpaceRunnerSubScene helpSubScene;
-	private SpaceRunnerSubScene exitSubScene;
-	private SpaceRunnerSubScene waitSubScene;
+	private RPGSubScene creditsSubScene;
+	private RPGSubScene creditsSubScene2;
+	private RPGSubScene creditsSubScene3;
+	private RPGSubScene modeChooserScene;
+	private RPGSubScene scoreSubScene;
+	private RPGSubScene helpSubScene;
+	private RPGSubScene exitSubScene;
+	private RPGSubScene waitSubScene;
 	
 	//tao noi luu tru subscene
-	private SpaceRunnerSubScene sceneToHidden;
+	private RPGSubScene sceneToHidden;
 	
 	private final String BACKGROUND_IMAGE = "model/resource/yellow_panel.png";
 	private final String PANELEXIT = "model/resource/yellow_ribbon.png";
@@ -80,14 +81,15 @@ public class ViewManager {
 	private final String MEMBER2= "model/imageteam/minh.png";
 	private final String MEMBER3= "model/imageteam/ha.png";
 	private final String MEMBER4= "model/imageteam/trang.png";
+	private final String MEMBER5= "model/imageteam/trang.png";
 	
 	//link nhac
 	//private final String MUSIC = "src/model/resource/deepside.mp3";
-	//tao mot lít luu tru cac button
-	List<SpaceRunnerButton> menuButton;
-	List<ShipPicker> shipsList;
+	//tao mot lÃ­t luu tru cac button
+	List<RPGButton> menuButton;
+	List<ModePicker> shipsList;
 	
-	private SHIP choosenShip;
+	private MODE choosenMode;
 	
 	public ViewManager() {
 		menuButton = new ArrayList<>();
@@ -102,7 +104,7 @@ public class ViewManager {
 		//createMusic();
 	}
 
-//================ Nhạc ===================================
+//================ Nháº¡c ===================================
 //**************************************************************
 //==============================================================
 	/*
@@ -113,7 +115,7 @@ public class ViewManager {
 	}
 	*/
 	//trien khai cac scene hidden
-	private void showSubScene(SpaceRunnerSubScene subScene) {
+	private void showSubScene(RPGSubScene subScene) {
 		if(sceneToHidden != null && sceneToHidden != subScene && sceneToHidden.isHidden() == false) {
 			sceneToHidden.moveSubScene();
 			subScene.moveSubScene();
@@ -128,37 +130,38 @@ public class ViewManager {
 //==============================================================
 	//khoi tao sub scene
 	private void createSubScene() {
-		helpSubScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
+		helpSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(helpSubScene);
 		
-		scoreSubScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
+		scoreSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(scoreSubScene);
 		
 		
-		//goi pthuc tao shipchoosen sub
-		createShipChooserSubScene();
+		//goi pthuc tao modechoosen sub
+		createModeChooserSubScene();
 		createCreditsSubScene();
 		createCreditsSubScene2();
+		createCreditsSubScene3();
 		createExitSubScene();
 		createWaitSubScene();
 		createHelpSubScene();
 	}
 	
-	private void createShipChooserSubScene() {
-		shipChooserScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
-		mainPane.getChildren().add(shipChooserScene);
+	private void createModeChooserSubScene() {
+		modeChooserScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
+		mainPane.getChildren().add(modeChooserScene);
 		
-		InfoLabel chooseShipLabel = new InfoLabel("CHOOSE YOUR SHIP");
-		chooseShipLabel.setLayoutX(110);
-		chooseShipLabel.setLayoutY(40);
-		shipChooserScene.getPane().getChildren().add(chooseShipLabel);
-		shipChooserScene.getPane().getChildren().add(createButtonExitSubScene());
-		shipChooserScene.getPane().getChildren().add(createShipsToChoose());
-		shipChooserScene.getPane().getChildren().add(createButtonToStart());
+		InfoLabel chooseModeLabel = new InfoLabel("SELECT MODE");
+		chooseModeLabel.setLayoutX(110);
+		chooseModeLabel.setLayoutY(40);
+		modeChooserScene.getPane().getChildren().add(chooseModeLabel);
+		modeChooserScene.getPane().getChildren().add(createButtonExitSubScene());
+		modeChooserScene.getPane().getChildren().add(createModesToChoose());
+		modeChooserScene.getPane().getChildren().add(createButtonToStart());
 	}
 	
 	private void createCreditsSubScene(){
-		creditsSubScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
+		creditsSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(creditsSubScene);
 		
 		createCreditsSubScene2();
@@ -173,21 +176,35 @@ public class ViewManager {
 	}
 	
 	private void createCreditsSubScene2(){
-		creditsSubScene2 = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
+		creditsSubScene2 = new RPGSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(creditsSubScene2);
 		
+		createCreditsSubScene3();
 		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		creditsSubScene2.getPane().getChildren().add(creditsLabel);
 		creditsSubScene2.getPane().getChildren().add(createButtonExitSubScene());
-		creditsSubScene2.getPane().getChildren().add(createButtonNext(creditsSubScene ,BUTTON_SLIDER_LEFT));
+		creditsSubScene2.getPane().getChildren().add(createButtonNext(creditsSubScene3 ,BUTTON_SLIDER_RIGHT));
 		addinfoCredits(creditsSubScene2,"Nguyen Thanh Ha\n"+"\t20176742",MEMBER3,210,150);
 		addinfoCredits(creditsSubScene2,"Hoang Thi Thu Trang\n"+"\t20176891",MEMBER4,210,260);
 	}
+	private void createCreditsSubScene3(){
+		creditsSubScene3 = new RPGSubScene(BACKGROUND_IMAGE,600,438);
+		mainPane.getChildren().add(creditsSubScene3);
+		
+		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
+		creditsLabel.setLayoutX(110);
+		creditsLabel.setLayoutY(40);
+		creditsSubScene3.getPane().getChildren().add(creditsLabel);
+		creditsSubScene3.getPane().getChildren().add(createButtonExitSubScene());
+		creditsSubScene3.getPane().getChildren().add(createButtonNext(creditsSubScene2 ,BUTTON_SLIDER_LEFT));
+		addinfoCredits(creditsSubScene3,"Nguyen Quoc Vuong\n"+"\t20176742",MEMBER5,210,200);
+		
+	}
 	
 	private void createExitSubScene() {
-		exitSubScene = new SpaceRunnerSubScene(PANELEXIT,630,329);
+		exitSubScene = new RPGSubScene(PANELEXIT,630,329);
 		exitSubScene.setLayoutX(1000);
 		exitSubScene.setLayoutY(250);
 		mainPane.getChildren().add(exitSubScene);
@@ -230,7 +247,7 @@ public class ViewManager {
 	}
 	
 	private void createWaitSubScene() {
-		waitSubScene = new SpaceRunnerSubScene(SPLASH_GIF,400,600);
+		waitSubScene = new RPGSubScene(SPLASH_GIF,400,600);
 		waitSubScene.setLayoutX(1020);
 		waitSubScene.setLayoutY(75);
 		mainPane.getChildren().add(waitSubScene);
@@ -238,7 +255,7 @@ public class ViewManager {
 	}
 	
 	private void createHelpSubScene() {
-		helpSubScene = new SpaceRunnerSubScene(BACKGROUND_IMAGE,600,438);
+		helpSubScene = new RPGSubScene(BACKGROUND_IMAGE,600,438);
 		mainPane.getChildren().add(helpSubScene);
 		
 		InfoLabel creditsLabel = new InfoLabel("HOW TO PLAY");
@@ -250,7 +267,7 @@ public class ViewManager {
 	}
 
 
-//======================= Chèn thông tin =======================
+//======================= ChÃ¨n thÃ´ng tin =======================
 //**************************************************************
 //==============================================================
 	//add thong tin vao help
@@ -259,13 +276,13 @@ public class ViewManager {
         box.setSpacing(20);
        
         String status = "- Sử dụng mũi tên để điều khiển nhân vật: \n" +
-                        "        👈 Di chuyển sang Trái. \n" +
-                        "        👉 Di chuyển sang Phải. \n" +
-                        "        👆 Di chuyển lên Trên. \n" +
-                        "        👇 Di chuyển xuống Dưới.\n" +
-                        "\n- SPACE: Tấn công quái vật. \n" +
-                        "\n- Để qua màn người chơi phải tiêu diệt\n" +
-                        "hết quái vật và thu thập hết vật phẩm. \n";
+                		"        👈 Di chuyển sang Trái. \n" +
+                		"        👉 Di chuyển sang Phải. \n" +
+                		"        👆 Di chuyển lên Trên. \n" +
+                		"        👇 Di chuyển xuống Dưới.\n" +
+                		"\n- SPACE: Tấn công quái vật. \n" +
+                		"\n- Để qua màn người chơi phải tiêu diệt\n" +
+                		"hết quái vật và thu thập hết vật phẩm. \n";
         Text text = new Text(status);
         text.setFont(Font.font ("Jamiro",FontWeight.BLACK, FontPosture.REGULAR, 20));
         text.setFill(Color.BLACK);
@@ -278,7 +295,7 @@ public class ViewManager {
     }
 	
 	// add thong tin vao credit
-	private void addinfoCredits(SpaceRunnerSubScene a,String str,String image,int x, int y ) {
+	private void addinfoCredits(RPGSubScene a,String str,String image,int x, int y ) {
 		ImageView logo = new ImageView(image);
 		logo.setLayoutX(x-150);
 		logo.setLayoutY(y-50);
@@ -317,25 +334,25 @@ public class ViewManager {
 //**************************************************************
 //==============================================================
 	//tao nut de chon
-	private HBox createShipsToChoose() {
+	private HBox createModesToChoose() {
 		HBox box = new HBox();
 		box.setSpacing(20);
 		shipsList = new ArrayList<>();
-		for(SHIP ship : SHIP.values()) { // them 1 anh vao moi ship
-			ShipPicker shipToPick = new ShipPicker(ship);
-			shipsList.add(shipToPick);
-			box.getChildren().add(shipToPick);
+		for(MODE mode : MODE.values()) { // them 1 anh vao moi ship
+			ModePicker modeToPick = new ModePicker(mode);
+			shipsList.add(modeToPick);
+			box.getChildren().add(modeToPick);
 			//thiet lap hanh dong click mouse
-			shipToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			modeToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					for(ShipPicker ship: shipsList) {
+					for(ModePicker ship: shipsList) {
 						//neu click vao 1 trong cac ships, moi ship deu thiet lap thanh flase
 						//co nghia la no khong duoc chon
 						ship.setIsCircleChoosen(false);
 					}
-					shipToPick.setIsCircleChoosen(true);
-					choosenShip = shipToPick.getShip();
+					modeToPick.setIsCircleChoosen(true);
+					choosenMode = modeToPick.getShip();
 				}
 			});
 		}
@@ -353,9 +370,9 @@ public class ViewManager {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				if (choosenShip != null) {
+				if (choosenMode != null) {
 					PreGameViewManager preNewGame = new PreGameViewManager();
-					preNewGame.createPreNewGame(mainStage, choosenShip);
+					preNewGame.createPreNewGame(mainStage, choosenMode);
 				}
 			}
 		});
@@ -375,7 +392,7 @@ public class ViewManager {
 		return exitButtonSubScene;
 	}
 	
-	private exitButtonSubScene createButtonNext( SpaceRunnerSubScene a, String image) {
+	private exitButtonSubScene createButtonNext( RPGSubScene a, String image) {
 		exitButtonSubScene exitButtonSubScene = new exitButtonSubScene(image,60,50);
 		exitButtonSubScene.setLayoutX(450);
 		exitButtonSubScene.setLayoutY(300);
@@ -398,7 +415,7 @@ public class ViewManager {
 		return mainStage;
 	}
 	*/
-	private void addMenuButton(SpaceRunnerButton button) {
+	private void addMenuButton(RPGButton button) {
 		button.setLayoutX(MENU_BUTTON_START_X);
 		button.setLayoutY(MENU_BUTTON_START_Y + menuButton.size() * 100);
 		menuButton.add(button);
@@ -418,19 +435,19 @@ public class ViewManager {
 //**************************************************************
 //==============================================================
 	private void createStarButton() {
-		SpaceRunnerButton starButton = new SpaceRunnerButton("PLAY",23);
+		RPGButton starButton = new RPGButton("PLAY",23);
 		addMenuButton(starButton);
 		
 		starButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				showSubScene(shipChooserScene);
+				showSubScene(modeChooserScene);
 			}
 		});
 	}
 	
 	private void createScoreButton() {
-		SpaceRunnerButton scoreButton = new SpaceRunnerButton("SCORES",23);
+		RPGButton scoreButton = new RPGButton("SCORES",23);
 		addMenuButton(scoreButton);
 		
 		scoreButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -442,7 +459,7 @@ public class ViewManager {
 	}
 	
 	private void createHelpButton() {
-		SpaceRunnerButton helpButton = new SpaceRunnerButton("HELP",23);
+		RPGButton helpButton = new RPGButton("HELP",23);
 		addMenuButton(helpButton);
 		
 		helpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -454,7 +471,7 @@ public class ViewManager {
 	}
 	
 	private void createCreditsButton() {
-		SpaceRunnerButton creditsButton = new SpaceRunnerButton("CREDITS",23);
+		RPGButton creditsButton = new RPGButton("CREDITS",23);
 		addMenuButton(creditsButton);
 		
 		// ket noi nut credit voi credit scene
@@ -467,7 +484,7 @@ public class ViewManager {
 	}
 	
 	private void createExitButton() {
-		SpaceRunnerButton exitButton = new SpaceRunnerButton("EXIT",23);
+		RPGButton exitButton = new RPGButton("EXIT",23);
 		addMenuButton(exitButton);
 		
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
