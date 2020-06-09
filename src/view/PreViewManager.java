@@ -1,6 +1,5 @@
 package view;
 
-import model.MODE;
 import view.PreViewManager;
 
 import model.exitButtonSubScene;

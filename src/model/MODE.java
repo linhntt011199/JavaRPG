@@ -2,9 +2,9 @@ package model;
 
 public enum MODE {
 		
-		EASY("view/resource/shipchooser/easy.png"),
-		MEDIUM("view/resource/shipchooser/medium.png"),
-		HARD("view/resource/shipchooser/hard.png");
+		EASY("view/resource/modechooser/easy.png"),
+		MEDIUM("view/resource/modechooser/medium.png"),
+		HARD("view/resource/modechooser/hard.png");
 		
 		private String urlMode;
 		

@@ -2,7 +2,7 @@ package view;
 
 import model.InfoLabel;
 import model.MODE;
-import model.ModePicker;
+import model.ModeChooser;
 
 import model.RPGButton;
 import model.RPGSubScene;
@@ -31,13 +31,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.effect.DropShadow;
 
 import java.util.List;
-import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;;
 
 
@@ -72,8 +67,8 @@ public class ViewManager {
 	public static final String SPLASH_GIF ="model/resource/source.gif";
 	public static final String SPLASH_GIF1 ="model/resource/this.gif";
 	
-	private static final int tile_width = 64, tile_height = 64;
-	private static final int ncols = 32, nrows = 20;
+//	private static final int tile_width = 64, tile_height = 64;
+//	private static final int ncols = 32, nrows = 20;
 	
 	//link anh
 	private final String FONT_PATH = "src/model/resource/VCENTI.TTF";		// dung trong thong tin
@@ -96,7 +91,7 @@ public class ViewManager {
 	private final String NUMBER1= "model/resource/number_1.png";
 	
 	List<RPGButton> menuButton;
-	List<ModePicker> modesList;
+	List<ModeChooser> modesList;
 	
 	private MODE choosenMode;
 	
@@ -385,21 +380,21 @@ public class ViewManager {
 		HBox box = new HBox();
 		box.setSpacing(20);
 		modesList = new ArrayList<>();
-		for(MODE mode : MODE.values()) { // them 1 anh vao moi ship
-			ModePicker modeToPick = new ModePicker(mode);
+		for(MODE mode : MODE.values()) { // them 1 anh vao moi MODE
+			ModeChooser modeToPick = new ModeChooser(mode);
 			modesList.add(modeToPick);
 			box.getChildren().add(modeToPick);
 			//thiet lap hanh dong click mouse
 			modeToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					for(ModePicker mode: modesList) {
-						//neu click vao 1 trong cac ships, moi ship deu thiet lap thanh flase
+					for(ModeChooser mode: modesList) {
+						//neu click vao 1 trong cac modes, moi mode deu thiet lap thanh flase
 						//co nghia la no khong duoc chon
-						mode.setIsCircleChoosen(false);
+						mode.setIscircleChosen(false);
 					}
-					modeToPick.setIsCircleChoosen(true);
-					choosenMode = modeToPick.getShip();
+					modeToPick.setIscircleChosen(true);
+					choosenMode = modeToPick.getMode();
 				}
 			});
 		}

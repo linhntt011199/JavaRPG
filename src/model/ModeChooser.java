@@ -6,27 +6,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-//lop nay bao gom ship image va circle image
-//circle image se bi day sau khi chon 1 trong ship
-public class ModePicker extends VBox{
+//lop nay bao gom mode image va circle image
+//circle image se bi day sau khi chon 1 trong mode
+public class ModeChooser extends VBox{
 	
 	private ImageView circleImage;
 	private ImageView modeImage;
 	
 	// bao gom Url cho filled circle image va empty circle image
-	private String circleNotChoosen = "view/resource/shipchooser/grey_circle.png";
-	private String circleChoosen  = "view/resource/shipchooser/yellow_boxTick.png";
+	private String circleNotChosen = "view/resource/modechooser/grey_circle.png";
+	private String circleChosen  = "view/resource/modechooser/yellow_boxTick.png";
 	
 	private MODE mode;
 	//nut do co duoc chon hay khong
-	private boolean isCircleChoosen;
+	private boolean iscircleChosen;
 	
-	public ModePicker(MODE mode) {
+	public ModeChooser(MODE mode) {
 		//tao nut gray circle image -> nut khong duoc chon
-		circleImage = new ImageView(circleNotChoosen);
+		circleImage = new ImageView(circleNotChosen);
 		modeImage = new ImageView(mode.getUrl());
 		this.mode = mode;
-		isCircleChoosen = false; // circle ban dau se o trang thai chua chon
+		iscircleChosen = false; // circle ban dau se o trang thai chua chon
 		// can chinh vi tri trung tam
 		this.setAlignment(Pos.CENTER);
 		this.setSpacing(20);
@@ -35,18 +35,18 @@ public class ModePicker extends VBox{
 		this.getChildren().add(modeImage);
 	}
 	
-	public MODE getShip() {
+	public MODE getMode() {
 		return mode;
 	}
 	
-	public boolean getIsCircleChoosen() {
-		return isCircleChoosen;
+	public boolean getIscircleChosen() {
+		return iscircleChosen;
 	}
 	
 	// tao method de tao circle neu no da duoc chon hoac khong duoc chon
-	public void setIsCircleChoosen(boolean isCircleChoosen) {
-		this.isCircleChoosen = isCircleChoosen;
-		String imageToSet = this.isCircleChoosen ? circleChoosen : circleNotChoosen;
+	public void setIscircleChosen(boolean iscircleChosen) {
+		this.iscircleChosen = iscircleChosen;
+		String imageToSet = this.iscircleChosen ? circleChosen : circleNotChosen;
 		circleImage.setImage(new Image(imageToSet));
 	}
 }
