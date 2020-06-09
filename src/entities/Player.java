@@ -317,5 +317,6 @@ public class Player extends Entity {
     	this.health -= 1;
     	healthBar.setValue(getRelativeHealth());
     	
+    	
     }
 }

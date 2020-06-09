@@ -220,6 +220,7 @@ public class GameViewManager {
 	
 	
 	private void moveCharacter() {
+		
 		if(movingLeft) {
 			if (movingUp) {
 					player.animation.play();
@@ -288,5 +289,5 @@ public class GameViewManager {
 			} else {
 				player.animation.stop();
 			}
-	}
+		}
 }

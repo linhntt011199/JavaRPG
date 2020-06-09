@@ -167,7 +167,6 @@ public class Monster extends Entity{
 	}
 	
 public void moveMonster(Player player, int left, int right, int up, int down) { 
-		
 		//System.out.println(h);
 		if (checkMonsterCollisionPlayer(player)) {
 			this.animation.stop();
