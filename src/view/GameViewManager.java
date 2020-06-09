@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,6 +22,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.MODE;
 
@@ -45,6 +48,7 @@ public class GameViewManager {
 	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
 	private ArrayList<Magic> magic = new ArrayList<Magic>();
 	private boolean shootingDelay = false;
+	private Entity score;
 	
 	public GameViewManager() {
 		initinalizeStage();
@@ -128,6 +132,37 @@ public class GameViewManager {
 		
 		createGameLoop();
 		gameStage.show();
+	}
+	
+	private void createScore() {
+		Image image = new Image("view/resources/score.png");
+		ImageView imageView = new ImageView(image);
+		score = new Entity(imageView, "score", 0, 0, 300, 200);
+		score.setLayoutX(32*15);
+		score.setLayoutY(32*8);
+		Text text = new Text("Hahaha");
+		try {
+			text.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
+		} catch (FileNotFoundException e) {
+			text.setFont(Font.font("Verdana", 23));
+		}
+		text.setX(100);
+		text.setY(50);
+		Image imageScore = new Image("view/resources/field.png");
+		ImageView imageViewScore = new ImageView(imageScore);
+		Text textScore = new Text("Score: ");
+		try {
+			textScore.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
+		} catch (FileNotFoundException e) {
+			textScore.setFont(Font.font("Verdana", 23));
+		}
+		imageViewScore.setX(50);
+		imageViewScore.setY(100);
+		textScore.setX(60);
+		textScore.setY(130);
+		score.getChildren().addAll(text, imageViewScore, textScore);
+		gamePane.getChildren().add(score);
+		
 	}
 	
 	private void createPlayer() {
@@ -214,12 +249,19 @@ public class GameViewManager {
 				monster2.moveMonster(player, 3, 1, 2, 0);
 				moveCharacter();
 				attack();
+				if (player.isActive() == false) {
+					createScore();
+					monster1.animation.stop();
+					monster2.animation.stop();
+				}
+				
 			}	
 		};
 		gameTimer.start();
 	}
 	
 	private void moveCharacter() {
+		if (player.isActive() == true) {
 		if(movingLeft) {
 			if (movingUp) {
 				player.setFaceUpLeft();
@@ -289,6 +331,7 @@ public class GameViewManager {
 			if (!player.checkEntityCollision(0,2)) player.moveY(2);
 		} else {
 			player.animation.stop();
+		}
 		}
 	}
 	

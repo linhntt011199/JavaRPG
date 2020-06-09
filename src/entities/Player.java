@@ -314,7 +314,16 @@ public class Player extends Entity {
     
     public void update(int i) {
     	this.health += i;
-    	if (this.health <= 0) setActive(false);
+    	if (this.health <= 0) {
+    		setActive(false);
+    		die();
+    	}
     	healthBar.setValue(getRelativeHealth());
     }
+	private void die() {
+		this.animation.play();
+		this.animation.setOffsetX(32*3);
+		this.animation.setOffsetY(32*7);
+		
+	}
 }
