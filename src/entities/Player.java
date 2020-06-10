@@ -308,6 +308,12 @@ public class Player extends Entity {
                     return true;
             	}
         	}
+        	if (e.getName().equals("house")) {
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), e.width, e.height);
+            	if(entityBound.intersects((this.getTranslateX()+8 + xOffset), (this.getTranslateY() + 10 + yOffset), this.getWidth()/2, this.getHeight()/2)){ // co giao cat
+                        return true;
+            	}
+        	}
         }
         return false; // khong co va cham
     }

@@ -220,7 +220,7 @@ public class ViewManager {
 		creditsLabel.setLayoutY(40);
 		creditsSubScene3.getPane().getChildren().add(creditsLabel);
 		creditsSubScene3.getPane().getChildren().add(createButtonExitSubScene());
-		creditsSubScene3.getPane().getChildren().add(createButtonNext(creditsSubScene2 ,BUTTON_SLIDER_LEFT));
+		creditsSubScene3.getPane().getChildren().add(createButtonNext(creditsSubScene ,BUTTON_SLIDER_LEFT));
 		addinfoCredits(creditsSubScene3,"Nguyen Quoc Vuong\n"+"\t20176742",MEMBER5,210,200);
 		
 	}
@@ -310,7 +310,7 @@ public class ViewManager {
 		scoreSubScene.getPane().getChildren().add(image);
 	}
 
-//======================= ChÃ¨n thÃ´ng tin =======================
+//======================= Chèn thông tin =======================
 //**************************************************************
 //==============================================================
 	//add thong tin vao help
