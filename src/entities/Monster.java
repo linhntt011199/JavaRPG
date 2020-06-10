@@ -143,6 +143,12 @@ public class Monster extends Entity{
                         return true;
             	}
         	}
+        	if (e.getName().equals("house")) {
+        		Rectangle entityBound = new Rectangle(e.getLayoutX(), e.getLayoutY(), e.width-5, e.height-3);
+            	if(entityBound.intersects((this.getTranslateX()+8 + layoutX + xOffset), (this.getTranslateY() + layoutY+ 16 + yOffset), this.getWidth()-20, this.getHeight()/2)){ // co giao cat
+                        return true;
+            	}
+        	}
         	if (this.getTranslateX() + xOffset == dX/2 || this.getTranslateX() + xOffset == -dX/2 || this.getTranslateY()  + yOffset == dY/2 || this.getTranslateY()  + yOffset == -dY/2) return true;
         
     		

@@ -200,7 +200,12 @@ public class GameViewManager {
 		WritableImage dirt = new WritableImage(reader, 320, 0, 64, 64);
 		WritableImage rock = new WritableImage(reader, 480, 355, 35, 27);
 		WritableImage tree = new WritableImage(reader, 256, 256, 64, 64);
+		WritableImage tree1 = new WritableImage(reader, 64, 64*5, 64, 64);
 		WritableImage water = new WritableImage(reader, 192, 256, 64, 64);
+		WritableImage house = new WritableImage(reader, 64*5, 64*7, 60, 64);
+		WritableImage house1 = new WritableImage(reader, 64*6, 64*0, 50, 50);
+		WritableImage road = new WritableImage(reader, 64*3, 64*5, 50, 64);
+		WritableImage road1 = new WritableImage(reader, 64*4, 64*0, 50, 50);
         
         for(int row = 0; row < nrows; row++)
             for(int col = 0; col < ncols; col++)
@@ -227,6 +232,35 @@ public class GameViewManager {
 						gc.drawImage(water, tile_width*col, tile_height*row, tile_width, tile_height);
 						visited(water, row, col);
 	            		gameObject2D.add(new Entity(imageView, "water", tile_width*col, tile_height*row, tile_width, tile_height));	
+					}
+	            	else if(tile[row][col] == 6) {
+						gc.drawImage(house, tile_width*col, tile_height*row, tile_width, tile_height);
+						visited(house, row, col);
+	            		gameObject2D.add(new Entity(imageView, "house", tile_width*col, tile_height*row, tile_width, tile_height));	
+					}
+
+	            	else if(tile[row][col] == 7) {
+						gc.drawImage(house1, tile_width*col, tile_height*row, tile_width, tile_height);
+						visited(house1, row, col);
+	            		gameObject2D.add(new Entity(imageView, "house", tile_width*col, tile_height*row, tile_width, tile_height));	
+					}
+	            	
+	            	else if(tile[row][col] == 8) {
+						gc.drawImage(tree1, tile_width*col, tile_height*row, tile_width, tile_height);
+						visited(tree1, row, col);
+	            		gameObject2D.add(new Entity(imageView, "tree", tile_width*col, tile_height*row, tile_width, tile_height));	
+					}
+	            	
+	            	else if(tile[row][col] == 9) {
+						gc.drawImage(road1, tile_width*col, tile_height*row, tile_width, tile_height);
+						visited(road1, row, col);
+	            		gameObject2D.add(new Entity(imageView, "water", tile_width*col, tile_height*row, tile_width, tile_height));	
+					}
+	            	
+	            	else if(tile[row][col] == 0) {
+						gc.drawImage(road, tile_width*col, tile_height*row, tile_width, tile_height);
+						visited(road, row, col);
+	            		gameObject2D.add(new Entity(imageView, "road", tile_width*col, tile_height*row, tile_width, tile_height));	
 					}
 //	            	else continue;
             	}
@@ -350,6 +384,7 @@ public class GameViewManager {
 				if (!c.isActive()) {
 					gamePane.getChildren().remove(c);
 					player.collisions.remove(c);
+					e.collisions.remove(c);
 				}
 			}
 		}
