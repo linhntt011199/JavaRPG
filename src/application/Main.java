@@ -2,18 +2,13 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.ViewManager;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
+import view.PreViewManager;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//primaryStage.setTitle("SIMPLE RPG");
-			ViewManager manager = new ViewManager();
-			
+			PreViewManager manager = new PreViewManager();
 			primaryStage = manager.getMainStage();
 			primaryStage.show();
 		} catch(Exception e) {
