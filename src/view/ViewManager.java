@@ -158,8 +158,6 @@ public class ViewManager {
 	private void createSubScene() {
 		createModeChooserSubScene();
 		createCreditsSubScene();
-		createCreditsSubScene2();
-		createCreditsSubScene3();
 		createScoreSubScene();
 		createExitSubScene();
 		createWaitSubScene();
