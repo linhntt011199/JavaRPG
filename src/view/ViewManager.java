@@ -320,7 +320,7 @@ public class ViewManager {
                 		"        👇 Di chuyển xuống Dưới.\n" +
                 		"\n- SPACE: Tấn công quái vật. \n" +
                 		"\n- Để qua màn người chơi phải tiêu diệt\n" +
-                		"hết quái vật và thu thập hết vật phẩm. \n";
+                		"hết quái vật rồi tìm đường sang map khác. \n";
         Text text = new Text(status);
         text.setFont(Font.font ("Jamiro",FontWeight.BLACK, FontPosture.REGULAR, 19));
         text.setFill(Color.BLACK);

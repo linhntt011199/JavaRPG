@@ -34,7 +34,7 @@ public class PreViewManager {
 	//anh
 	private final String MENU_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/menu.png');";
 	private final String SETTINGS_MUSIC_BUTTON = "-fx-background-color: transparent; -fx-background-image: url('model/resources/play.png');";
-	private final String MUSIC = "src/model/resources/deepside.mp3";
+	private final String MUSIC = "src/model/resources/tomjerry.mp3";
 	
 	private Stage menuStage;
 	MediaPlayer mediaPlayer;
