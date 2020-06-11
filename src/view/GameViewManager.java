@@ -178,7 +178,7 @@ public class GameViewManager {
 	private void createMonster() {
 		Image image1 = new Image("view/resources/EntitySet.png");
 		ImageView imageView1 = new ImageView(image1); 
-		monster1 = new Monster(imageView1, "monster", 100, 2, 400, 400, 400, 400, 32, 32, 3, 3);
+		monster1 = new Monster(imageView1, "monster", 100, 1, 400, 400, 400, 400, 32, 32, 3, 3);
 		gamePane.getChildren().add(monster1);
 		monster1.setOffsetX(32*6);
 		monster1.setOffsetY(0);
@@ -186,7 +186,7 @@ public class GameViewManager {
 		
 		Image image3 = new Image("view/resources/EntitySet.png");
 		ImageView imageView3 = new ImageView(image3);  
-		monster3 = new Monster(imageView3, "monster", 100, 2, 800, 400, 400, 400, 32, 32, 3, 3);
+		monster3 = new Monster(imageView3, "monster", 100, 1, 800, 400, 400, 400, 32, 32, 3, 3);
 		gamePane.getChildren().add(monster3);
 		monster3.setOffsetX(32*6);
 		monster3.setOffsetY(0);
@@ -194,7 +194,7 @@ public class GameViewManager {
 		
 		Image image2 = new Image("view/resources/monster.png");
 		ImageView imageView2 = new ImageView(image2); 
-		monster2 = new Monster(imageView2, "monster", 100, 2, 300, 200, 400, 400, 64, 64, 8, 8);
+		monster2 = new Monster(imageView2, "monster", 100, 1, 300, 200, 400, 400, 64, 64, 8, 8);
 		gamePane.getChildren().add(monster2);
 		monster2.addCollision(gameObject2D);
 	}
