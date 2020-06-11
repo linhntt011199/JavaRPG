@@ -1,3 +1,5 @@
-/entities/
-/view/
+/.DS_Store
+/application/
 /model/
+/view/
+/entities/
