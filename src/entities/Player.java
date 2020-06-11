@@ -19,7 +19,7 @@ public class Player extends Entity {
     int velocity = 2;
 	public SpriteAnimation animation;
 	HealthBar healthBar;
-	private static final double healthMax = 100;
+	private static final double healthMax = 150;
 	double health;
 	
 //	private boolean isFacingRight = false;

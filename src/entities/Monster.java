@@ -177,7 +177,7 @@ public class Monster extends Entity{
 		//System.out.println(h);
 		if (checkMonsterCollisionPlayer(player)) {
 			this.animation.stop();
-			player.update(-1);
+			if (this.isActive() == true) player.update(-1);
 			
 		}
 		else {
