@@ -64,8 +64,7 @@ public class ViewManager {
 	private final String BACKGROUND_IMAGE = "model/resources/yellow_panel.png";
 	private final String PANELEXIT = "model/resources/yellow_ribbon.png";
 	private final String CHARACTOR = "model/resources/charactor.png";
-	public static final String SPLASH_GIF ="model/resources/source.gif";
-	public static final String SPLASH_GIF1 ="model/resources/this.gif";
+	public static final String SPLASH_GIF ="model/gif/source.gif";
 	
 //	private static final int tile_width = 64, tile_height = 64;
 //	private static final int ncols = 32, nrows = 20;
@@ -86,7 +85,7 @@ public class ViewManager {
 	private final String MEMBER2= "model/imageteam/minh.png";
 	private final String MEMBER3= "model/imageteam/ha.png";
 	private final String MEMBER4= "model/imageteam/trang.png";
-	private final String MEMBER5= "model/imageteam/trang.png";
+	private final String MEMBER5= "model/imageteam/vuong.png";
 	
 	private final String NUMBER1= "model/resources/number_1.png";
 	
@@ -182,12 +181,11 @@ public class ViewManager {
 		mainPane.getChildren().add(creditsSubScene);
 		
 		createCreditsSubScene2();
-		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
+		InfoLabel creditsLabel = new InfoLabel("GAME DEV");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		creditsSubScene.getPane().getChildren().add(creditsLabel);
 		creditsSubScene.getPane().getChildren().add(createButtonExitSubScene());
-		//creditsSubScene.getPane().getChildren().add(createButtonNext(creditsSubScene, BUTTON_SLIDER_LEFT ));	
 		creditsSubScene.getPane().getChildren().add(createButtonNext(creditsSubScene2, BUTTON_SLIDER_RIGHT ));
 		addinfoCredits(creditsSubScene,"Nguyen Thi Thuy Linh\n"+"\t20176802",MEMBER1,210,150);
 		addinfoCredits(creditsSubScene,"Luong Duc Minh\n"+"\t20176821",MEMBER2,210,260);
@@ -198,7 +196,7 @@ public class ViewManager {
 		mainPane.getChildren().add(creditsSubScene2);
 		
 		createCreditsSubScene3();
-		InfoLabel creditsLabel = new InfoLabel("TEAM MEMBER");
+		InfoLabel creditsLabel = new InfoLabel("MENU DEV");
 		creditsLabel.setLayoutX(110);
 		creditsLabel.setLayoutY(40);
 		creditsSubScene2.getPane().getChildren().add(creditsLabel);
@@ -219,7 +217,7 @@ public class ViewManager {
 		creditsSubScene3.getPane().getChildren().add(creditsLabel);
 		creditsSubScene3.getPane().getChildren().add(createButtonExitSubScene());
 		creditsSubScene3.getPane().getChildren().add(createButtonNext(creditsSubScene ,BUTTON_SLIDER_LEFT));
-		addinfoCredits(creditsSubScene3,"Nguyen Quoc Vuong\n"+"\t20176742",MEMBER5,210,200);
+		addinfoCredits(creditsSubScene3,"Nguyen Quoc Vuong\n"+"\t20176915",MEMBER5,210,150);
 		
 	}
 	
@@ -271,7 +269,7 @@ public class ViewManager {
 		waitSubScene.setLayoutX(1020);
 		waitSubScene.setLayoutY(75);
 		mainPane.getChildren().add(waitSubScene);
-
+		showSubScene(waitSubScene);
 	}
 	
 	private void createHelpSubScene() {

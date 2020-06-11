@@ -44,7 +44,7 @@ public class GameViewManager {
 	private boolean movingDown;
 	private boolean isSpacePressed;
 	private Player player;
-	private Monster monster1, monster2;
+	private Monster monster1, monster2, monster3;
 	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
 	private ArrayList<Magic> magic = new ArrayList<Magic>();
 	private boolean shootingDelay = false;
@@ -129,6 +129,7 @@ public class GameViewManager {
 		createMonster();
 		gameObject2D.add(monster1);
 		gameObject2D.add(monster2);
+		gameObject2D.add(monster3);
 		createPlayer();
 		
 		createGameLoop();
@@ -183,7 +184,13 @@ public class GameViewManager {
 		monster1.setOffsetY(0);
 		monster1.addCollision(gameObject2D);
 		
-		
+		Image image3 = new Image("view/resources/EntitySet.png");
+		ImageView imageView3 = new ImageView(image3);  
+		monster3 = new Monster(imageView3, "monster", 100, 2, 800, 400, 400, 400, 32, 32, 3, 3);
+		gamePane.getChildren().add(monster3);
+		monster3.setOffsetX(32*6);
+		monster3.setOffsetY(0);
+		monster3.addCollision(gameObject2D);
 		
 		Image image2 = new Image("view/resources/monster.png");
 		ImageView imageView2 = new ImageView(image2); 
@@ -282,12 +289,14 @@ public class GameViewManager {
 			public void handle(long now) {
 				monster1.moveMonster(player, 1, 2, 3, 0); // left, right, up, down
 				monster2.moveMonster(player, 3, 1, 2, 0);
+				monster3.moveMonster(player, 1, 2, 3, 0); 
 				moveCharacter();
 				attack();
 				if (player.isActive() == false) {
 					createScore();
 					monster1.animation.stop();
 					monster2.animation.stop();
+					monster3.animation.stop();
 				}
 				
 			}	
@@ -395,6 +404,7 @@ public class GameViewManager {
 				gamePane.getChildren().add(magic_element);
 				magic_element.collisions.add(monster1);
 				magic_element.collisions.add(monster2);
+				magic_element.collisions.add(monster3);
 				magic_element.collisions.addAll(gameObject2D);
 				shootingDelay = true;
 			}

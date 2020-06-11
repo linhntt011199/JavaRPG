@@ -39,15 +39,15 @@ public class Monster extends Entity{
 		this.imageView = imageView;
 		this.health = health;
 		this.speed = speed;
-		this.dX = dX;
+		this.dX = dX;				//khoang cach di chuyen duoc
 		this.dY = dY;
-		this.layoutX = layoutX;
+		this.layoutX = layoutX;		//toa do xuat phat
 		this.layoutY = layoutY;
 		this.setLayoutX(layoutX);
 		this.setLayoutY(layoutY);
-		this.width = width;
+		this.width = width;			// kich co quai vat
 		this.height = height;
-		this.columns = columns;
+		this.columns = columns;		// so cot anh
 		this.count = count;
 		this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		animation = new SpriteAnimation(imageView,Duration.millis(500),count,columns,offsetX,offsetY, width, height);
@@ -177,6 +177,7 @@ public class Monster extends Entity{
 		//System.out.println(h);
 		if (checkMonsterCollisionPlayer(player)) {
 			this.animation.stop();
+			player.update(-1);
 			
 		}
 		else {
