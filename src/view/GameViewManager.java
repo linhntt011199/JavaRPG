@@ -46,7 +46,7 @@ public class GameViewManager {
 	private boolean movingDown;
 	private boolean isSpacePressed;
 	private Player player;
-	private Monster monster1, monster2;
+	private Monster monster1, monster2, monster3;
 	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
 	private static final String textWorld1 = new String("src/view/resources/world2.txt");
 	private static final String textWorld2 = new String("src/view/resources/world1.txt");
@@ -135,6 +135,7 @@ public class GameViewManager {
 		createMonster();
 		gameObject2D.add(monster1);
 		gameObject2D.add(monster2);
+		gameObject2D.add(monster3);
 		createPlayer();
 		onBoardScore = new Text("Score: " + finalScore);
 		try {
@@ -203,15 +204,23 @@ public class GameViewManager {
 	private void createMonster() {
 		Image image1 = new Image("view/resources/EntitySet.png");
 		ImageView imageView1 = new ImageView(image1); 
-		monster1 = new Monster(imageView1, "monster", 100, 2, 400, 400, 400, 400, 32, 32, 3, 3);
+		monster1 = new Monster(imageView1, "monster", 100, 1, 400, 400, 400, 400, 32, 32, 3, 3);
 		gamePane.getChildren().add(monster1);
 		monster1.setOffsetX(32*6);
 		monster1.setOffsetY(0);
 		monster1.addCollision(gameObject2D);
 		
+		Image image3 = new Image("view/resources/EntitySet.png");
+		ImageView imageView3 = new ImageView(image3);  
+		monster3 = new Monster(imageView3, "monster", 100, 1, 800, 400, 400, 400, 32, 32, 3, 3);
+		gamePane.getChildren().add(monster3);
+		monster3.setOffsetX(32*6);
+		monster3.setOffsetY(0);
+		monster3.addCollision(gameObject2D);
+		
 		Image image2 = new Image("view/resources/monster.png");
 		ImageView imageView2 = new ImageView(image2); 
-		monster2 = new Monster(imageView2, "monster", 100, 2, 300, 200, 400, 400, 64, 64, 8, 8);
+		monster2 = new Monster(imageView2, "monster", 100, 1, 300, 200, 400, 400, 64, 64, 8, 8);
 		gamePane.getChildren().add(monster2);
 		monster2.addCollision(gameObject2D);
 	}
@@ -306,12 +315,14 @@ public class GameViewManager {
 			public void handle(long now) {
 				monster1.moveMonster(player, 1, 2, 3, 0); // left, right, up, down
 				monster2.moveMonster(player, 3, 1, 2, 0);
+				monster3.moveMonster(player, 1, 2, 3, 0); 
 				moveCharacter();
 				attack();
 				if (player.isActive() == false) {
 					createScore();
 					monster1.animation.stop();
 					monster2.animation.stop();
+					monster3.animation.stop();
 				}
 				if (player.getTranslateX()==770 && player.getTranslateY()==0) {
 					createNewWorld(textWorld2);
@@ -421,6 +432,7 @@ public class GameViewManager {
 				gamePane.getChildren().add(magic_element);
 				magic_element.collisions.add(monster1);
 				magic_element.collisions.add(monster2);
+				magic_element.collisions.add(monster3);
 				magic_element.collisions.addAll(gameObject2D);
 				shootingDelay = true;
 				finalScore -= 1;

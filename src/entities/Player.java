@@ -19,7 +19,7 @@ public class Player extends Entity {
     int velocity = 2;
 	public SpriteAnimation animation;
 	HealthBar healthBar;
-	private static final double healthMax = 100;
+	private static final double healthMax = 150;
 	double health;
 	
 //	private boolean isFacingRight = false;
@@ -304,7 +304,7 @@ public class Player extends Entity {
         		//System.out.println("monster "+(e.getTranslateX()+ e.getLayoutX()-15) + " " + (e.getTranslateY()+e.getLayoutY()-2) + " "+ (e.getWidth()/2)+" "+ (e.getHeight()-3));
             	if(entityBound.intersects((this.getTranslateX() + xOffset*2), (this.getTranslateY()  + yOffset*2), this.getWidth(), this.getHeight())){ // co giao cat
             		//System.out.println("player "+(this.getTranslateX() + xOffset) + " " + (this.getTranslateY()  + yOffset ) + " "+ this.getWidth()/2+" "+ this.getHeight()/2);
-            		update(-1);
+            		//update(-1);
                     return true;
             	}
         	}
