@@ -45,6 +45,7 @@ public class GameViewManager {
 	private boolean movingUp;
 	private boolean movingDown;
 	private boolean isSpacePressed;
+	private boolean isExitPressed;
 	private Player player;
 	private Monster monster1, monster2, monster3;
 	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
@@ -83,6 +84,8 @@ public class GameViewManager {
 					movingDown = true;
 				} else if (event.getCode() == KeyCode.SPACE) {
 					isSpacePressed = true;
+				} else if (event.getCode() == KeyCode.ESCAPE) {
+					isExitPressed = true;
 				}
 			}
 		});
@@ -100,6 +103,8 @@ public class GameViewManager {
 					movingDown = false;
 				} else if (event.getCode() == KeyCode.SPACE) {
 					isSpacePressed = false;
+				} else if (event.getCode() == KeyCode.ESCAPE) {
+					isExitPressed = false;
 				}
 			}
 		});
@@ -331,9 +336,17 @@ public class GameViewManager {
 					monster3.animation.stop();
 				}
 //				System.out.println(player.getTranslateX() + " " + player.getTranslateY());
+<<<<<<< HEAD
 				if (player.getTranslateX()==1812 && player.getTranslateY()==932) {
 					createNewGame(gameStage, MODE.EASY);	
 				}
+=======
+//				if (player.getTranslateX()==770 && player.getTranslateY()==0) {
+//					createNewWorld(textWorld2);
+//				}
+				checkExit();
+				
+>>>>>>> f0efa5034706d0787c5cd4517f1ce6ea1c049ff2
 			}	
 		};
 		gameTimer.start();
@@ -444,6 +457,13 @@ public class GameViewManager {
 				shootingDelay = true;
 				updateScore(-1);	
 			}
+		}
+	}
+	
+	private void checkExit() {
+		if (isExitPressed) {
+			gameStage.close();
+//			menuStage.show();
 		}
 	}
 }
