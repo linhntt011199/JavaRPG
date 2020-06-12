@@ -153,7 +153,12 @@ public class GameViewManager {
 	
 	private void createNewWorld(String textWorld) {
 		gamePane = new AnchorPane();
-		gameStage.setScene(new Scene(gamePane));
+		gameScene = new Scene(gamePane, GAME_WIDTH, GAME_HEIGHT);
+		Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		readFile(textWorld);
+		loadWorld(gc);
+		gameStage.setScene(gameScene);
 	}
 	
 	private void createScore() {
@@ -163,8 +168,8 @@ public class GameViewManager {
 //		score.setLayoutX(GAME_WIDTH/2);
 //		score.setLayoutY(GAME_HEIGHT/2);
 		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-		score.setLayoutX(screenBounds.getMaxX()/2);
-		score.setLayoutY(screenBounds.getMaxY()/2);
+		score.setLayoutX(screenBounds.getMaxX()/2-200);
+		score.setLayoutY(screenBounds.getMaxY()/2-200);
 		Text text = new Text("Hahaha");
 		try {
 			text.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
@@ -175,7 +180,7 @@ public class GameViewManager {
 		text.setY(50);
 		Image imageScore = new Image("view/resources/field.png");
 		ImageView imageViewScore = new ImageView(imageScore);
-		Text textScore = new Text("Score: ");
+		Text textScore = new Text("Score: " + finalScore);
 		try {
 			textScore.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
 		} catch (FileNotFoundException e) {
@@ -325,8 +330,9 @@ public class GameViewManager {
 					monster2.animation.stop();
 					monster3.animation.stop();
 				}
-				if (player.getTranslateX()==770 && player.getTranslateY()==0) {
-					createNewWorld(textWorld2);
+//				System.out.println(player.getTranslateX() + " " + player.getTranslateY());
+				if (player.getTranslateX()==1812 && player.getTranslateY()==932) {
+					createNewGame(gameStage, MODE.EASY);	
 				}
 			}	
 		};
