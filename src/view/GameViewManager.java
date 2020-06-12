@@ -53,7 +53,7 @@ public class GameViewManager {
 	private ArrayList<Magic> magic = new ArrayList<Magic>();
 	private boolean shootingDelay = false;
 	private Entity score;
-	private int finalScore = 0;
+	private int finalScore = 100;
 	private Text onBoardScore;
 	
 	public GameViewManager() {
@@ -189,7 +189,8 @@ public class GameViewManager {
 		gamePane.getChildren().add(score);	
 	}
 	
-	private void updateScore() {
+	private void updateScore(int i) {
+		finalScore += i;
 		onBoardScore.setText("Score: " + finalScore);
 	}
 	
@@ -435,8 +436,7 @@ public class GameViewManager {
 				magic_element.collisions.add(monster3);
 				magic_element.collisions.addAll(gameObject2D);
 				shootingDelay = true;
-				finalScore -= 1;
-				updateScore();	
+				updateScore(-1);	
 			}
 		}
 	}
