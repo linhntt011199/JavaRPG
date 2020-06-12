@@ -336,17 +336,10 @@ public class GameViewManager {
 					monster3.animation.stop();
 				}
 //				System.out.println(player.getTranslateX() + " " + player.getTranslateY());
-<<<<<<< HEAD
 				if (player.getTranslateX()==1812 && player.getTranslateY()==932) {
 					createNewGame(gameStage, MODE.EASY);	
 				}
-=======
-//				if (player.getTranslateX()==770 && player.getTranslateY()==0) {
-//					createNewWorld(textWorld2);
-//				}
 				checkExit();
-				
->>>>>>> f0efa5034706d0787c5cd4517f1ce6ea1c049ff2
 			}	
 		};
 		gameTimer.start();
@@ -463,7 +456,6 @@ public class GameViewManager {
 	private void checkExit() {
 		if (isExitPressed) {
 			gameStage.close();
-//			menuStage.show();
 		}
 	}
 }
