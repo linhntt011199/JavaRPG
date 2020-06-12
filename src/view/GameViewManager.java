@@ -5,13 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import entities.Entity;
 import entities.Magic;
 import entities.Monster;
 import entities.Player;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,8 +22,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.MODE;
 
@@ -46,9 +48,13 @@ public class GameViewManager {
 	private Player player;
 	private Monster monster1, monster2, monster3;
 	private ImageView fireball = new ImageView(new Image("view/resources/fireball.png"));
+	private static final String textWorld1 = new String("src/view/resources/world2.txt");
+	private static final String textWorld2 = new String("src/view/resources/world1.txt");
 	private ArrayList<Magic> magic = new ArrayList<Magic>();
 	private boolean shootingDelay = false;
 	private Entity score;
+	private int finalScore = 0;
+	private Text onBoardScore;
 	
 	public GameViewManager() {
 		initinalizeStage();
@@ -99,8 +105,8 @@ public class GameViewManager {
 		});
 	}
 	
-	private void readFile() {
-		File world = new File("src/view/resources/world2.txt");
+	private void readFile(String textWorld) {
+		File world = new File(textWorld);
         Scanner sc = null;
 		try {
 			sc = new Scanner(world);
@@ -123,7 +129,7 @@ public class GameViewManager {
 		gameStage.getIcons().add(new Image("model/resources/start.png"));
 		Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		readFile();
+		readFile(textWorld1);
 		loadWorld(gc);
 		gamePane.getChildren().add(canvas);
 		createMonster();
@@ -131,17 +137,34 @@ public class GameViewManager {
 		gameObject2D.add(monster2);
 		gameObject2D.add(monster3);
 		createPlayer();
-		
+		onBoardScore = new Text("Score: " + finalScore);
+		try {
+			onBoardScore.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
+		} catch (FileNotFoundException e) {
+			onBoardScore.setFont(Font.font("Verdana", 23));
+		}
+		onBoardScore.setFill(Color.BEIGE);
+		onBoardScore.setX(500);
+		onBoardScore.setY(30);
+		gamePane.getChildren().add(onBoardScore);
 		createGameLoop();
 		gameStage.show();
+	}
+	
+	private void createNewWorld(String textWorld) {
+		gamePane = new AnchorPane();
+		gameStage.setScene(new Scene(gamePane));
 	}
 	
 	private void createScore() {
 		Image image = new Image("view/resources/score.png");
 		ImageView imageView = new ImageView(image);
 		score = new Entity(imageView, "score", 0, 0, 300, 200);
-		score.setLayoutX(32*15);
-		score.setLayoutY(32*8);
+//		score.setLayoutX(GAME_WIDTH/2);
+//		score.setLayoutY(GAME_HEIGHT/2);
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+		score.setLayoutX(screenBounds.getMaxX()/2);
+		score.setLayoutY(screenBounds.getMaxY()/2);
 		Text text = new Text("Hahaha");
 		try {
 			text.setFont(Font.loadFont(new FileInputStream(new File("src/model/resources/kenvector_future.ttf")), 23));
@@ -163,8 +186,11 @@ public class GameViewManager {
 		textScore.setX(60);
 		textScore.setY(130);
 		score.getChildren().addAll(text, imageViewScore, textScore);
-		gamePane.getChildren().add(score);
-		
+		gamePane.getChildren().add(score);	
+	}
+	
+	private void updateScore() {
+		onBoardScore.setText("Score: " + finalScore);
 	}
 	
 	private void createPlayer() {
@@ -298,7 +324,9 @@ public class GameViewManager {
 					monster2.animation.stop();
 					monster3.animation.stop();
 				}
-				
+				if (player.getTranslateX()==770 && player.getTranslateY()==0) {
+					createNewWorld(textWorld2);
+				}
 			}	
 		};
 		gameTimer.start();
@@ -407,6 +435,8 @@ public class GameViewManager {
 				magic_element.collisions.add(monster3);
 				magic_element.collisions.addAll(gameObject2D);
 				shootingDelay = true;
+				finalScore -= 1;
+				updateScore();	
 			}
 		}
 	}
