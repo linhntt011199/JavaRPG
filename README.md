@@ -15,3 +15,5 @@
    - 29/5/2020:       <pre></code>Team is devided in 2 groups: one finishes the menu, other works on game details</code></pre>
    - 4/6/2020:        <pre></code>Work on two diff branchs: menuView & gameView</code></pre>
 </details>
+### Demo
+![MenuView](MenuDemo.png)
